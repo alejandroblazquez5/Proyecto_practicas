@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="titulo">Sabanas</h1>
+        <div class="opciones">
+            <button id="normal" class="btn btn-normal" value="Normal" onclick="">Normal</button>
+            <button id="premium" class="btn btn-premium" value="Premium" onclick="">Premium</button>
+        </div>
+    </header>
+    <main>
+        <div class="texto">Sabanas es una compañía especializada en el cuidado y la higienización textil de blancos,
+            dedicada a
+            transformar la experiencia del descanso a través de un servicio de suscripción cómodo, puntual y de alta
+            calidad.
+            Creemos que el confort del hogar comienza en los detalles, por ello hemos diseñado un sistema que libera a
+            nuestros clientes
+            de la carga logística que supone el lavado de sábanas, garantizando siempre una frescura impecable en sus
+            dormitorios.<br>
+            Contamos con dos modalidades adaptadas a las necesidades de cada hogar: nuestra Suscripción Estándar, ideal
+            para quienes
+            buscan una higiene constante y profesional con procesos de lavado y secado de última tecnología; y nuestra
+            Suscripción
+            Premium, una experiencia de lujo diseñada para los más exigentes, que incluye tratamientos de desinfección
+            profunda,
+            planchado artesanal para un acabado de hotel y atención prioritaria con entregas personalizadas. En Sabanas,
+            no solo lavamos tejidos, cuidamos tu tiempo y elevamos tu bienestar nocturno.
+        </div>
+        <p></p>
+        <div class="cuadromov">
+            <div class="foto">
+                <img src="sabana.jpg" alt="sabana">
+            </div>
+            <fieldset class="cuadro">
+                <legend>Deja tus datos y te enviamos precios!</legend>
+                <form class="formulario">
+                    <p>
+                        <div class="campo">
+                        <label for="nombreClient">Nombre: </label>
+                        <input type="text" id="nombreClient" values="Escriba aqui"></input>
+                        </div>
+                    <p>
+                        <div class="campo">
+                        <label for="apellidosClient">Apellidos: </label>
+                        <input type="text" id="apellidosClient" values="Escriba aqui"></input>
+                        </div>
+                    <p>
+                        <div class="campo">
+                        <label for="correoClient">Correo: </label>
+                        <input type="text" id="correoClient" values="Escriba aqui"></input>
+                        </div>
+                    <p>
+                        <h3>Medidas</h3>
+                    <p>
+                        <div class="campo">
+                        <label for="medalt">Alto de la sabana: </label>
+                        <input type="number">
+                        </div>
+                    <p>
+                        <div class="campo">
+                        <label for="medanch">Ancho de la sabana: </label>
+                        <input type="number">
+                        </div>
+                    <p>
+                        <button id="enviar" class="btn btn-enviar" value="Enviar" onclick="">Enviar</button>
+                </form>
+            </fieldset>
+        </div>
+    </main>
+</body>
+
+</html>

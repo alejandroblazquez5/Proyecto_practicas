@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: lightblue;
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.titulo{
+    color: var(--white);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    font-family: 'Arial', sans-serif;
+}
+.opciones {
+    display: flex;
+    gap: 1rem;
+}
+.btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-normal{
+    background: grey;
+    color: white;
+}
+.btn-premium{
+    background-color: gold;
+    color: white;
+}
+.texto{
+    font-size: 25px;
+    display: flex;
+}
+.foto{
+    display: flex;
+    justify-content: center;
+    
+}
+.cuadromov{
+    display: flex;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+.cuadro{
+    width: fit-content;
+    padding: 20px;   
+}
+.campo{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
