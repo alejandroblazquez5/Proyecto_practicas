@@ -30,11 +30,9 @@ public class Main {
                 conn.close();
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("No se encontró el driver de MySQL. Asegúrate de tener la dependencia correcta.");
-            e.printStackTrace();
+            System.out.println("No se encontró el driver de MySQL. Asegúrate de tener la dependencia correcta.");
         } catch (SQLException e) {
-            System.err.println("Error al conectar o ejecutar la consulta SQL:");
-            e.printStackTrace();
+            System.out.println("Error al conectar o ejecutar la consulta SQL:");
         }
     }
 }

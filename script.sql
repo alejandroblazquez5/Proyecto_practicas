@@ -8,12 +8,12 @@ nombre,
 fechas
 comentario*/
 CREATE TABLE maestra(
-	id_sabana INT PRIMARY KEY,
+	id_sabana INT AUTO_INCREMENT PRIMARY KEY,
 	nombre VARCHAR(30),
 	fecha DATE,
 	comentario VARCHAR(100)
 );
-/*2.- servicios  1,23, xxx,Servicio de mantenimiento  de desarrollo	Seguimiento	Soporte avanzado		                1,0 	        490,00 € 	      1,0 	                     490 € 	                            -   € 	35,0%	0,0%	                       754 € 		1							1					
+/*2.- servicios  1,23, xxxx,Servicio de mantenimiento  de desarrollo	Seguimiento	Soporte avanzado		                1,0 	        490,00 € 	      1,0 	                     490 € 	                            -   € 	35,0%	0,0%	                       754 € 		1							1					
 idservicios primarykey
 idsabana foreingkey
 Concepto	
@@ -43,7 +43,7 @@ I
 5	
 6*/
 CREATE TABLE servicios(
-	id_servicios INT,
+	id_servicios INT AUTO_INCREMENT PRIMARY KEY,
 	id_sabana INT,
 	Concepto VARCHAR(100),
 	Comentario VARCHAR(100),
@@ -70,7 +70,8 @@ CREATE TABLE servicios(
 	i3	INT,
 	i4	INT,
 	i5	INT,
-	i6	INT
+	i6	INT,
+	FOREIGN KEY (id_sabana) REFERENCES maestra(id_sabana)
 );
 
 /*3.- area contabilidad 1,1,xx,x,,x,,x
@@ -87,7 +88,7 @@ H5
 H6	
 Hito cierre*/
 CREATE TABLE areaContabilidad(
-	id_areaContabilidad INT,
+	id_areaContabilidad INT AUTO_INCREMENT PRIMARY KEY,
 	id_servicios INT,
 	Tipo_pago VARCHAR(50),
 	Meses INT,
@@ -98,7 +99,8 @@ CREATE TABLE areaContabilidad(
 	H4 INT,
 	H5 INT,
 	H6 INT,
-	Hito_cierre INT
+	Hito_cierre INT,
+	FOREIGN KEY (id_servicios) REFERENCES servicios(id_servicios)
 );
 
 /*4- Margenes  1,23,1,35
@@ -107,10 +109,12 @@ idsabana foreingkey
 idtipomargen  foreingkey
 margen*/
 CREATE TABLE margenes( 
-	id_margen INT,
+	id_margen INT AUTO_INCREMENT PRIMARY KEY,
 	id_sabana INT,
 	id_tipoMargen INT, 
-	margen DECIMAL(4,2)
+	margen DECIMAL(4,2),
+	FOREIGN KEY (id_sabana) REFERENCES maestra(id_sabana),
+	FOREIGN KEY (id_tipoMargen) REFERENCES tipoMargenes(id_tipoMargen)
 );
 												
 /*5- topes 1,23,3,null
@@ -119,17 +123,19 @@ idsabana  foreingkey
 idtipoTopes  foreingkey
 topes*/
 CREATE TABLE topes( 
-	id_topes INT, 
+	id_topes INT AUTO_INCREMENT PRIMARY KEY, 
 	id_sabana INT,
 	id_tipoTopes INT, 
-	topes INT
+	topes INT,
+	FOREIGN KEY (id_sabana) REFERENCES maestra(id_sabana),
+	FOREIGN KEY (id_tipoTopes) REFERENCES tipoTopes(id_tipoTopes)
 );
 
 /*6.- TipoMargenes 1,implantacion
 idtipomargen primarykey
 tipo*/
 CREATE TABLE tipoMargenes(
-	id_tipoMargen INT,
+	id_tipoMargen INT AUTO_INCREMENT PRIMARY KEY,
 	tipo VARCHAR(50)
 );
 
@@ -137,7 +143,7 @@ CREATE TABLE tipoMargenes(
 idtipoTopes primarykey
 Agrupacióntopes*/
 CREATE TABLE tipoTopes(
-	id_tipoTopes INT,
+	id_tipoTopes INT AUTO_INCREMENT PRIMARY KEY,
 	agrupacionTopes INT
 );
 
@@ -149,14 +155,15 @@ COSTE por Expediente
 PVP por Expediente	
 GP por Expediente	
 %GP*/
-CREATE TABLE margenesMensuales( 
-	id_margenAnual INT,
+CREATE TABLE margenesAnuales( 
+	id_margenAnual INT AUTO_INCREMENT PRIMARY KEY,
 	id_margen INT,
 	ano INT,
 	COSTE DECIMAL(4,2),	
 	PVP DECIMAL(4,2),
 	GP 	INT,
-	GPpct INT
+	GPpct INT,git status
+	FOREIGN KEY (id_margen) REFERENCES margenes(id_margen)
 );
 
 /*9.- topesanuales
@@ -167,11 +174,12 @@ COSTE
 PVP	GP	
 %GP*/
 CREATE TABLE topes_anuales( 
-	id_topeAnual INT,
-	id_tope INT,
+	id_topeAnual INT AUTO_INCREMENT PRIMARY KEY,
+	id_topes INT,
 	anos INT,
 	COSTE DECIMAL(4,2),
 	PVP DECIMAL(4,2),	
 	GP INT,
-	GPpct INT
+	GPpct INT,
+	FOREIGN KEY (id_topes) REFERENCES topes(id_topes)
 );

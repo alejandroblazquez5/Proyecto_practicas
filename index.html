@@ -7,73 +7,110 @@
     <title>Proyecto</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
-        <h1 class="titulo">Sabanas</h1>
-        <div class="opciones">
-            <button id="normal" class="btn btn-normal" value="Normal" onclick="">Normal</button>
-            <button id="premium" class="btn btn-premium" value="Premium" onclick="">Premium</button>
-        </div>
+        <h1 class="titulo">Proyecto</h1>
     </header>
     <main>
-        <div class="texto">Sabanas es una compañía especializada en el cuidado y la higienización textil de blancos,
-            dedicada a
-            transformar la experiencia del descanso a través de un servicio de suscripción cómodo, puntual y de alta
-            calidad.
-            Creemos que el confort del hogar comienza en los detalles, por ello hemos diseñado un sistema que libera a
-            nuestros clientes
-            de la carga logística que supone el lavado de sábanas, garantizando siempre una frescura impecable en sus
-            dormitorios.<br>
-            Contamos con dos modalidades adaptadas a las necesidades de cada hogar: nuestra Suscripción Estándar, ideal
-            para quienes
-            buscan una higiene constante y profesional con procesos de lavado y secado de última tecnología; y nuestra
-            Suscripción
-            Premium, una experiencia de lujo diseñada para los más exigentes, que incluye tratamientos de desinfección
-            profunda,
-            planchado artesanal para un acabado de hotel y atención prioritaria con entregas personalizadas. En Sabanas,
-            no solo lavamos tejidos, cuidamos tu tiempo y elevamos tu bienestar nocturno.
-        </div>
-        <p></p>
-        <div class="cuadromov">
-            <div class="foto">
-                <img src="sabana.jpg" alt="sabana">
+        <div class="Tipos">
+            <fieldset class="recTip">
+            <h2>Tipos</h2>
+            <button id="añadirTip" class="añadirTip" value="+" onclick="añadirTipo()">+</button>
+            <div class="datosTipos">
+                <select id="selcTipo">
+                    <option value="0" selected disabled>Selecciona un tipo</option>
+                    <option value="1">Tipo 1</option>
+                    <option value="2">Tipo 2</option>
+                    <option value="3">Tipo 3</option>
+                </select>
+                <input type="number" id="cantTipos">
             </div>
-            <fieldset class="cuadro">
-                <legend>Deja tus datos y te enviamos precios!</legend>
-                <form class="formulario">
-                    <p>
-                        <div class="campo">
-                        <label for="nombreClient">Nombre: </label>
-                        <input type="text" id="nombreClient" values="Escriba aqui"></input>
-                        </div>
-                    <p>
-                        <div class="campo">
-                        <label for="apellidosClient">Apellidos: </label>
-                        <input type="text" id="apellidosClient" values="Escriba aqui"></input>
-                        </div>
-                    <p>
-                        <div class="campo">
-                        <label for="correoClient">Correo: </label>
-                        <input type="text" id="correoClient" values="Escriba aqui"></input>
-                        </div>
-                    <p>
-                        <h3>Medidas</h3>
-                    <p>
-                        <div class="campo">
-                        <label for="medalt">Alto de la sabana: </label>
-                        <input type="number">
-                        </div>
-                    <p>
-                        <div class="campo">
-                        <label for="medanch">Ancho de la sabana: </label>
-                        <input type="number">
-                        </div>
-                    <p>
-                        <button id="enviar" class="btn btn-enviar" value="Enviar" onclick="">Enviar</button>
-                </form>
+            <button id="enviarTip" class="enviarTipos" value="Enviar" onclick="enviarTipo()">Enviar</button>    
             </fieldset>
         </div>
+        <p></p>
+        <div class="Topes">
+            <fieldset class="recTop">
+            <h2>Topes</h2>
+            <button id="añadirTop" class="añadirTop" value="+" onclick="añadirTope()">+</button>
+            <div class="datosTopes">
+                <select id="selcTope">
+                    <option value="0" selected disabled>Selecciona un tope</option>
+                    <option value="1">Tope 1</option>
+                    <option value="2">Tope 2</option>
+                    <option value="3">Tope 3</option>
+                </select>
+                <input type="number" id="cantTopes">
+            </div>
+            <button id="enviarTop" class="enviarTopes" value="Enviar" onclick="enviarTope()">Enviar</button>
+            </fieldset>
+        </div>
+        <p></p>
+        <div class="Servicios">
+            <fieldset class="recServ">
+            <h2>Servicios</h2>
+            <button id="añadirServ" class="añadirServ" value="+" onclick="añadirServ()">+</button>
+            <div class="datosServicios">
+                <select id="selcServ">
+                    <option value="0" selected disabled>Selecciona un servicio</option>
+                    <option value="1">Servicio 1</option>
+                    <option value="2">Servicio 2</option>
+                    <option value="3">Servicio 3</option>
+                </select>
+                <input type="number" id="cantServicios">
+            </div>
+            <button id="enviarServ" class="enviarServicios" value="Enviar" onclick="enviarServicio()">Enviar</button>
+            </fieldset>
+        </div>
+
     </main>
 </body>
+<script>
+
+    var selcTipo = 0;
+    var selcTope = 0;
+    var selcServ = 0;
+    var cantTipos = 0;
+    var cantTopes = 0;
+    var cantServicios = 0;
+
+    function añadirTipo() {
+        const datosTipos = document.querySelector('.datosTipos');
+        const clone = datosTipos.cloneNode(true);
+        datosTipos.parentNode.insertBefore(clone, datosTipos.nextSibling);
+    }
+
+    function añadirTope() {
+        const datosTopes = document.querySelector('.datosTopes');
+        const clone = datosTopes.cloneNode(true);
+        datosTopes.parentNode.insertBefore(clone, datosTopes.nextSibling);    
+    }
+
+    function añadirServ() {
+        const datosServicios = document.querySelector('.datosServicios');
+        const clone = datosServicios.cloneNode(true);
+        datosServicios.parentNode.insertBefore(clone, datosServicios.nextSibling);
+    }
+
+    function enviarTipo() {
+        selcTipo = document.getElementById("selcTipo").value;
+        cantTipos = document.getElementById("cantTipos").value;
+        console.log("Tipo seleccionado: " + selcTipo + ", Cantidad: " + cantTipos);
+    }
+
+    function enviarTope() {
+        selcTope = document.getElementById("selcTope").value;
+        cantTopes = document.getElementById("cantTopes").value;
+        console.log("Tope seleccionado: " + selcTope + ", Cantidad: " + cantTopes);
+    }
+
+    function enviarServicio() {
+        selcServ = document.getElementById("selcServ").value;
+        cantServicios = document.getElementById("cantServicios").value;
+        console.log("Servicio seleccionado: " + selcServ + ", Cantidad: " + cantServicios);
+    }
+
+</script>
 
 </html>
