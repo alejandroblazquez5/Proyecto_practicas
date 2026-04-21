@@ -9,7 +9,8 @@
 <body>
     <header>
         <h1 class="titulo">Proyecto</h1>
-        <button onclick="volver()">Volver</button>
+        <button id="cambPagIni" onclick="irAInicio()">Ir a Inicio</button>
+        <button id="cambPag"onclick="irADatos()">Ir a datos</button>
     </header>
     <main>
         <h2>Resultados</h2>
@@ -26,23 +27,25 @@
 
 
     
-        
-
     <script >
-        function volver() {
-             window.history.back();
+        function irAInicio() {
+            window.location.href = "index.html";
+        }
+        
+        function irADatos() {
+            window.location.href = "datos.html";
         }
     
-        function añadirResultado() {
-        var tabla = document.getElementById("tablaResultados");
-        var fila = document.createElement("tr")
-        fila.innerHTML =
-          "<td>" + document.getElementById("nombreEquipo1").textContent + "</td>" + 
-          "<td>" + document.getElementById("nombreEquipo2").textContent +"</td>" +
-          "<td>" + sets1 + " - " + sets2 + "</td>";
-        tabla.appendChild(fila);
-        }
-
+        /*  function añadirResultado() {
+            var tabla = document.getElementById("tablaResultados");
+            var fila = document.createElement("tr")
+            fila.innerHTML =
+             "<td>" + document.getElementById("nombreEquipo1").textContent + "</td>" + 
+             "<td>" + document.getElementById("nombreEquipo2").textContent +"</td>" +
+             "<td>" + sets1 + " - " + sets2 + "</td>";
+            tabla.appendChild(fila);
+            }>
+        */
     </script>
 </body>
 </html>
