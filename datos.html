@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos</title>
+    <link rel="stylesheet" href="stylesDatos.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="titulo">Proyecto</h1>
+        <button id="cambPagIni" onclick="irAInicio()">Ir a Inicio</button>
+        <button id="cambPag"onclick="irAResultados()">Ir a resultados</button>
+    </header>
+    <main>
+        <div class="tiptopserv">
+            <div class="Tipos">
+                <fieldset class="recTip">
+                    <div class="cabtip">
+                        <h2>Tipos</h2>
+                        <button id="añadirTip" class="añadirTip" value="+" onclick="añadirTipo()">+</button>
+                    </div>
+                    <div class="datosTipos">
+                        <select id="selcTipo">
+                            <option value="0" selected disabled>Selecciona un tipo</option>
+                            <option value="1">Implantacion</option>
+                            <option value="2">Formacion</option>
+                            <option value="3">Gestion</option>
+                            <option value="4">Infraestructura</option>
+                            <option value="5">Soporte</option>
+                            <option value="6">soporte avanzado</option>
+                            <option value="7">Evolucion y mejora</option>
+                            <option value="8">Desarrollo</option>
+    <!--modificable-->      <option value="9">Comodin 1</option>
+    <!--modificable-->      <option value="10">Comodin 2</option>
+    <!--modificable-->      <option value="11">Comodin 3</option>
+    <!--modificable-->      <option value="12">Comodin 4</option>
+                        </select>
+                        <input type="number" id="cantTipos" placeholder="Introduzca la cantidad">
+                    </div>
+                    <button id="enviarTip" class="enviarTipos" value="Enviar" onclick="enviarTipo()">Enviar</button>
+                </fieldset>
+            </div>
+            <p></p>
+            <div class="Topes">
+                <fieldset class="recTop">
+                    <div class="cabtop">
+                        <h2>Agrupacion de topes</h2>
+                        <button id="añadirTop" class="añadirTop" value="+" onclick="añadirTope()">+</button>
+                    </div>
+                    <div class="datosTopes">
+                        <select id="selcTope">
+                            <option value="0" selected disabled>Selecciona un tope</option>
+                            <option value="1">Implantacion</option>
+                            <option value="2">Formacion</option>
+                            <option value="3">Gestion</option>
+                            <option value="4">Infraestructura</option>
+                            <option value="5">Soporte</option>
+                            <option value="6">soporte avanzado</option>
+                            <option value="7">Evolucion y mejora</option>
+                            <option value="8">Desarrollo</option>
+    <!--modificable-->      <option value="9">Comodin 1</option>
+    <!--modificable-->      <option value="10">Comodin 2</option>
+    <!--modificable-->      <option value="11">Comodin 3</option>
+    <!--modificable-->      <option value="12">Comodin 4</option>
+                        </select>
+                        <input type="number" id="cantTopes" placeholder="Introduzca la cantidad">
+                    </div>
+                    <button id="enviarTop" class="enviarTopes" value="Enviar" onclick="enviarTope()">Enviar</button>
+                </fieldset>
+            </div>
+            <p></p>
+            <div class="Servicios">
+                <fieldset class="recServ">
+                    <div class="cabserv">
+                        <h2>Servicios</h2>
+                        <button id="añadirServ" class="añadirServ" value="+" onclick="añadirServ()">+</button>
+                    </div>
+                    <div class="datosServicios">
+                        <select id="selcServ">
+                            <option value="0" selected disabled>Selecciona un servicio</option>
+                            <option value="1">Servicio 1</option>
+                            <option value="2">Servicio 2</option>
+                            <option value="3">Servicio 3</option>
+                        </select>
+                        <input type="number" id="cantServicios" placeholder="Introduzca la cantidad">
+                    </div>
+                    <button id="enviarServ" class="enviarServicios" value="Enviar" onclick="enviarServicio()">Enviar</button>
+                </fieldset>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+
+    var selcTipo = 0;
+    var selcTope = 0;
+    var selcServ = 0;
+    var cantTipos = 0;
+    var cantTopes = 0;
+    var cantServicios = 0;
+
+    function añadirTipo() {
+        const datosTipos = document.querySelector('.datosTipos');
+        const clone = datosTipos.cloneNode(true);
+        datosTipos.parentNode.insertBefore(clone, datosTipos.nextSibling);
+    }
+
+    function añadirTope() {
+        const datosTopes = document.querySelector('.datosTopes');
+        const clone = datosTopes.cloneNode(true);
+        datosTopes.parentNode.insertBefore(clone, datosTopes.nextSibling);
+    }
+
+    function añadirServ() {
+        const datosServicios = document.querySelector('.datosServicios');
+        const clone = datosServicios.cloneNode(true);
+        datosServicios.parentNode.insertBefore(clone, datosServicios.nextSibling);
+    }
+
+    function enviarTipo() {
+        selcTipo = document.getElementById("selcTipo").value;
+        cantTipos = document.getElementById("cantTipos").value;
+        console.log("Tipo seleccionado: " + selcTipo + ", Cantidad: " + cantTipos);
+    }
+
+    function enviarTope() {
+        selcTope = document.getElementById("selcTope").value;
+        cantTopes = document.getElementById("cantTopes").value;
+        console.log("Tope seleccionado: " + selcTope + ", Cantidad: " + cantTopes);
+    }
+
+    function enviarServicio() {
+        selcServ = document.getElementById("selcServ").value;
+        cantServicios = document.getElementById("cantServicios").value;
+        console.log("Servicio seleccionado: " + selcServ + ", Cantidad: " + cantServicios);
+    }
+
+    function irAInicio() {
+        window.location.href = "index.html";
+    }
+
+    function irAResultados() {
+        window.location.href = "resultados.html";
+    }
+
+</script>
+
+</html>
