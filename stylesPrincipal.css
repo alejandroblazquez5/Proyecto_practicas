@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: lightblue;
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.titulo{
+    color: var(--white);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    font-family: 'Arial', sans-serif;
+}
+fieldset{
+    background-color: lightblue;
+    width: fit-content;
+    padding: 20px;   
+}
+.cabtip{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.datosTipos{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.cabtop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.datosTopes{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.cabserv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.datosServicios{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tiptopserv{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+h2{
+    font-size: 1.7rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+button{
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 13px;
+}
+select, input{
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

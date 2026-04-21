@@ -8,18 +8,20 @@ import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/proyecto";
-        String user = "root";
-        String password = "root";
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306";
+            String user = "root";
+            String password = "root";
 
-            try (Connection conn = DriverManager.getConnection(url, user, password);
-                 Statement st = conn.createStatement();
-                 ResultSet rs = st.executeQuery("SHOW TABLES")) {
+            Connection conn = DriverManager.getConnection(url, user, password);
+                
+            System.out.println("Conexión exitosa a la base de datos");
 
-                System.out.println("Conexión exitosa a la base de datos");
+            Statement st = conn.createStatement();
+                 
+            ResultSet rs = st.executeQuery("SHOW TABLES");
+
                 System.out.println("Tablas en la base de datos 'proyecto':");
 
                 while (rs.next()) {
@@ -28,7 +30,6 @@ public class Main {
                 rs.close();
                 st.close();
                 conn.close();
-            }
         } catch (ClassNotFoundException e) {
             System.out.println("No se encontró el driver de MySQL. Asegúrate de tener la dependencia correcta.");
         } catch (SQLException e) {

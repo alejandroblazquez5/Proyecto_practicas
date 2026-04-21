@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <link rel="stylesheet" href="stylesResultados.css">
+</head>
+<body>
+    <header>
+        <h1 class="titulo">Proyecto</h1>
+        <button onclick="volver()">Volver</button>
+    </header>
+    <main>
+        <h2>Resultados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipos</th>
+                    <th>Topes</th>
+                    <th>Servicios</th>
+                </tr>
+            </thead>
+            <tbody id="tablaResultados"></tbody>
+        </table>
+
+
+    
+        
+
+    <script >
+        function volver() {
+             window.history.back();
+        }
+    
+        function añadirResultado() {
+        var tabla = document.getElementById("tablaResultados");
+        var fila = document.createElement("tr")
+        fila.innerHTML =
+          "<td>" + document.getElementById("nombreEquipo1").textContent + "</td>" + 
+          "<td>" + document.getElementById("nombreEquipo2").textContent +"</td>" +
+          "<td>" + sets1 + " - " + sets2 + "</td>";
+        tabla.appendChild(fila);
+        }
+
+    </script>
+</body>
+</html>
