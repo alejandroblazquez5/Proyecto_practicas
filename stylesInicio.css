@@ -26,3 +26,7 @@ button{
     border-radius: 5px;
     font-size: 13px;
 }
+.navBtn{
+    display: flex;
+    gap: 25px;
+}
