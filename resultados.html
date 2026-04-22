@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados</title>
     <link rel="stylesheet" href="stylesResultados.css">
+     <link rel="alternate" href="datos.html">
+    <link rel="alternate" href="administracion.html">
 </head>
 <body>
     <header>
         <h1 class="titulo">Proyecto</h1>
         <div class="navBtn">
-            <button id="cambPagIni" onclick="irAInicio()">Ir a Inicio</button>
+            <button id="cambPagAdm" onclick="irAAdministracion()">Ir a Administracion</button>
             <button id="cambPagDat" onclick="irADatos()">Ir a datos</button>
         </div>
     </header>
@@ -19,35 +21,109 @@
         <table>
             <thead>
                 <tr>
-                    <th>Tipos</th>
-                    <th>Topes</th>
-                    <th>Servicios</th>
+                    <th>Referencia</th>
+                    <th>Implantacion</th>
+                    <th>Formacion</th>
+                    <th>Gestion</th>
+                    <th>Infraestructura</th>
+                    <th>Soporte</th>
+                    <th>soporte avanzado</th>
+                    <th>Evolucion y mejora</th>
+                    <th>Desarrollo</th>
+<!--modificable-->  <th>Comodin 1</th>
+<!--modificable-->  <th>Comodin 2</th>
+<!--modificable-->  <th>Comodin 3</th>
+<!--modificable-->  <th>Comodin 4</th>
+                    <th>
+<!--editar datos-->    <button id="cambPagDatEd" onclick="irADatos()">E</button>
+<!--borrar campo-->    <button id="borCamp" onclick="BorrarCampo()">D</button> 
+                    </th>
                 </tr>
             </thead>
             <tbody id="tablaResultados"></tbody>
         </table>
-
+        <p></p>
+        <button id="enviarTab" value="EnviarTabla" onclick="enviarTabla()">Enviar</button>
 
     
     <script >
-        function irAInicio() {
-            window.location.href = "index.html";
+
+        var referencia = 0;
+
+        function irAAdministracion() {
+            window.location.href = "administracion.html";
         }
         
         function irADatos() {
             window.location.href = "datos.html";
         }
-    
-        /*  function añadirResultado() {
+        
+        function calcReferencia() {
+            if (enviarServicio()) {
+                referencia++;                           /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
+                return referencia;
+            } 
+        }
+        
+        function añadirResultadoTipo() {
             var tabla = document.getElementById("tablaResultados");
             var fila = document.createElement("tr")
             fila.innerHTML =
-             "<td>" + document.getElementById("nombreEquipo1").textContent + "</td>" + 
-             "<td>" + document.getElementById("nombreEquipo2").textContent +"</td>" +
-             "<td>" + sets1 + " - " + sets2 + "</td>";
+             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
+             "<td>" + document.getElementById("impTip").textContent +"</td>" +
+             "<td>" + document.getElementById("forTip").textContent + "</td>" +
+             "<td>" + document.getElementById("gesTip").textContent + "</td>" +
+             "<td>" + document.getElementById("infTip").textContent + "</td>" +
+             "<td>" + document.getElementById("sopTip").textContent + "</td>" +
+             "<td>" + document.getElementById("sopAvTip").textContent + "</td>" +
+             "<td>" + document.getElementById("evoMejTip").textContent + "</td>" +
+             "<td>" + document.getElementById("desTip").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin1Tip").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin2Tip").textContent + "</td>" + 
+             "<td>" + document.getElementById("comodin3Tip").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin4Tip").textContent + "</td>";
             tabla.appendChild(fila);
-            }>
-        */
+        }
+
+        function añadirResultadoTope() {
+            var tabla = document.getElementById("tablaResultados");
+            var fila = document.createElement("tr")
+            fila.innerHTML =
+             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
+             "<td>" + document.getElementById("impTop").textContent +"</td>" +
+             "<td>" + document.getElementById("forTop").textContent + "</td>" +
+             "<td>" + document.getElementById("gesTop").textContent + "</td>" +
+             "<td>" + document.getElementById("infTop").textContent + "</td>" +
+             "<td>" + document.getElementById("sopTop").textContent + "</td>" +
+             "<td>" + document.getElementById("sopAvTop").textContent + "</td>" +
+             "<td>" + document.getElementById("evoMejTop").textContent + "</td>" +
+             "<td>" + document.getElementById("desTop").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin1Top").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin2Top").textContent + "</td>" + 
+             "<td>" + document.getElementById("comodin3Top").textContent + "</td>" +
+             "<td>" + document.getElementById("comodin4Top").textContent + "</td>";
+            tabla.appendChild(fila);
+        }
+
+        function añadirResultadoServ() {
+            var tabla = document.getElementById("tablaResultados");
+            var fila = document.createElement("tr")
+            fila.innerHTML =
+             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
+             "<td>" + document.getElementById("Serv").textContent +"</td>" +
+             "<td>" + document.getElementById("ServPremium").textContent + "</td>";
+            tabla.appendChild(fila);
+        }
+
+        function BorrarCampo() {
+                                                        /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
+        }
+
+        function enviarTabla() {
+                                                                  /*aqui debo crear una funcion que recoja la tabla tal cual se muestra en la pagina y la almacene como una 
+                                                                  variable o un valor y se conecte con la API donde se almacenara*/  
+        }
+
     </script>
 </body>
 </html>
