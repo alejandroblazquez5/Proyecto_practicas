@@ -78,3 +78,7 @@ select, input{
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+.navBtn{
+    display: flex;
+    gap: 25px;
+}

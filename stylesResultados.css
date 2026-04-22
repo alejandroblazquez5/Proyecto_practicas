@@ -26,3 +26,16 @@ button{
     border-radius: 5px;
     font-size: 13px;
 }
+table{
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+table, th, td{
+    border: 1px solid black;
+}
+.navBtn{
+    display: flex;
+    gap: 25px;
+}
