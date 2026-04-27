@@ -1,4 +1,4 @@
-CREATE DATABASE proyecto;
+CREATE DATABASE IF NOT EXISTS proyecto;
 
 USE proyecto;
 
@@ -44,19 +44,19 @@ I
 6*/
 CREATE TABLE servicios(
 	id_servicios INT AUTO_INCREMENT PRIMARY KEY,
-	id_sabana INT,
-	Concepto VARCHAR(100),
-	Comentario VARCHAR(100),
-	Tipo VARCHAR(50),
-	Agrupacion_topes VARCHAR(30),
-	Horas DECIMAL(4,2),
-	Costes_h DECIMAL(4,2),
-	Mult DECIMAL(4,2),
-	Coste DECIMAL(4,2),
-	Tope_licitación DECIMAL(4,2),
-	Margen DECIMAL(4,2),	
-	Des DECIMAL(4,2),
-	PVP	DECIMAL(4,2),
+    id_sabana INT,
+    Concepto VARCHAR(100),
+    Comentario VARCHAR(100),
+    Tipo VARCHAR(50),
+    Agrupacion_topes VARCHAR(30),
+    Horas DECIMAL(4,2),
+    Costes_h DECIMAL(4,2),
+    Mult DECIMAL(4,2),
+    Coste DECIMAL(4,2),
+    Tope_licitacion DECIMAL(4,2),
+    Margen DECIMAL(4,2),
+    Des DECIMAL(4,2),
+    PVP DECIMAL(4,2),
 	cI	INT,
 	c1	INT,
 	c2	INT,
@@ -144,7 +144,7 @@ idtipoTopes primarykey
 Agrupacióntopes*/
 CREATE TABLE tipoTopes(
 	id_tipoTopes INT AUTO_INCREMENT PRIMARY KEY,
-	agrupacionTopes INT
+	agrupacionTopes VARCHAR(30)
 );
 
 /*8.- margenesanuales
@@ -162,7 +162,7 @@ CREATE TABLE margenesAnuales(
 	COSTE DECIMAL(4,2),	
 	PVP DECIMAL(4,2),
 	GP 	INT,
-	GPpct INT,git status
+	GPpct INT,
 	FOREIGN KEY (id_margen) REFERENCES margenes(id_margen)
 );
 
