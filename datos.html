@@ -20,6 +20,10 @@
     </header>
     <main>
         <h2>Datos</h2>
+        <div>
+            <input type="text" id="nombreSabana" placeholder="Introduzca el nombre de la sabana">
+            <input type="text" id="comentarioSabana" placeholder="Introduzca un comentario sobre la sabana">
+        </div>
         <div class="tiptopserv">
             <div class="Tipos">
                 <fieldset class="recTip">
@@ -28,22 +32,26 @@
                         <button id="añadirTip" value="+" onclick="añadirTipo()">+</button>
                     </div>
                     <div class="datosTipos">
-                        <select id="selcTipo">
+                        <select class="selcTipo">
                             <option value="0" selected disabled>Selecciona un tipo</option>
-                            <option value="1" id="impTip">Implantacion</option>
-                            <option value="2" id="forTip">Formacion</option>
-                            <option value="3" id="gesTip">Gestion</option>
-                            <option value="4" id="infTip">Infraestructura</option>
-                            <option value="5" id="sopTip">Soporte</option>
-                            <option value="6" id="sopAvTip">soporte avanzado</option>
-                            <option value="7" id="evoMejTip">Evolucion y mejora</option>
-                            <option value="8" id="desTip">Desarrollo</option>
-    <!--modificable-->      <option value="9" id="comodin1Tip">Comodin 1</option>
-    <!--modificable-->      <option value="10" id="comodin2Tip">Comodin 2</option>
-    <!--modificable-->      <option value="11" id="comodin3Tip">Comodin 3</option>
-    <!--modificable-->      <option value="12" id="comodin4Tip">Comodin 4</option>
+                            <option value="1" class="impTip">Implantacion</option>
+                            <option value="2" class="forTip">Formacion</option>
+                            <option value="3" class="gesTip">Gestion</option>
+                            <option value="4" class="infTip">Infraestructura</option>
+                            <option value="5" class="sopTip">Soporte</option>
+                            <option value="6" class="sopAvTip">soporte avanzado</option>
+                            <option value="7" class="evoMejTip">Evolucion y mejora</option>
+                            <option value="8" class="desTip">Desarrollo</option>
+                            <!--modificable-->
+                            <option value="9" class="comodin1Tip">Comodin 1</option>
+                            <!--modificable-->
+                            <option value="10" class="comodin2Tip">Comodin 2</option>
+                            <!--modificable-->
+                            <option value="11" class="comodin3Tip">Comodin 3</option>
+                            <!--modificable-->
+                            <option value="12" class="comodin4Tip">Comodin 4</option>
                         </select>
-                        <input type="number" id="cantTipos" placeholder="Introduzca la cantidad">
+                        <input type="number" class="cantTipos" placeholder="Introduzca la cantidad">
                     </div>
                     <button id="enviarTip" value="EnviarTipos" onclick="enviarTipo()">Enviar</button>
                 </fieldset>
@@ -56,22 +64,26 @@
                         <button id="añadirTop" value="+" onclick="añadirTope()">+</button>
                     </div>
                     <div class="datosTopes">
-                        <select id="selcTope">
+                        <select class="selcTope">
                             <option value="0" selected disabled>Selecciona un tope</option>
-                            <option value="1" id="impTop">Implantacion</option>
-                            <option value="2" id="forTop">Formacion</option>
-                            <option value="3" id="gesTop">Gestion</option>
-                            <option value="4" id="infTop">Infraestructura</option>
-                            <option value="5" id="sopTop">Soporte</option>
-                            <option value="6" id="sopAvTop">soporte avanzado</option>
-                            <option value="7" id="evoMejTop">Evolucion y mejora</option>
-                            <option value="8" id="desTop">Desarrollo</option>
-    <!--modificable-->      <option value="9" id="comodin1Top">Comodin 1</option>
-    <!--modificable-->      <option value="10" id="comodin2Top">Comodin 2</option>
-    <!--modificable-->      <option value="11" id="comodin3Top">Comodin 3</option>
-    <!--modificable-->      <option value="12" id="comodin4Top">Comodin 4</option>
+                            <option value="1" class="impTop">Implantacion</option>
+                            <option value="2" class="forTop">Formacion</option>
+                            <option value="3" class="gesTop">Gestion</option>
+                            <option value="4" class="infTop">Infraestructura</option>
+                            <option value="5" class="sopTop">Soporte</option>
+                            <option value="6" class="sopAvTop">soporte avanzado</option>
+                            <option value="7" class="evoMejTop">Evolucion y mejora</option>
+                            <option value="8" class="desTop">Desarrollo</option>
+                            <!--modificable-->
+                            <option value="9" class="comodin1Top">Comodin 1</option>
+                            <!--modificable-->
+                            <option value="10" class="comodin2Top">Comodin 2</option>
+                            <!--modificable-->
+                            <option value="11" class="comodin3Top">Comodin 3</option>
+                            <!--modificable-->
+                            <option value="12" class="comodin4Top">Comodin 4</option>
                         </select>
-                        <input type="number" id="cantTopes" placeholder="Introduzca la cantidad">
+                        <input type="number" class="cantTopes" placeholder="Introduzca la cantidad">
                     </div>
                     <button id="enviarTop" value="EnviarTopes" onclick="enviarTope()">Enviar</button>
                 </fieldset>
@@ -84,12 +96,12 @@
                         <button id="añadirServ" value="+" onclick="añadirServ()">+</button>
                     </div>
                     <div class="datosServicios">
-                        <select id="selcServ">
+                        <select class="selcServ">
                             <option value="0" selected disabled>Selecciona un servicio</option>
-                            <option value="1" id="Serv">Servicio de mantenimiento de desarrollo</option>
-                            <option value="2" id="ServPremium">Servicio de mantenimiento de desarrollo premium</option>
+                            <option value="1" class="Serv">Servicio de mantenimiento de desarrollo</option>
+                            <option value="2" class="ServPremium">Servicio de mantenimiento de desarrollo premium</option>
                         </select>
-                        <input type="text" id="cantServicios" placeholder="Introduzca la referencia">
+                        <input type="number" class="refServicios" placeholder="Introduzca la referencia">
                     </div>
                     <button id="enviarServ" value="EnviarServicios" onclick="enviarServicio()">Enviar</button>
                 </fieldset>
@@ -105,13 +117,27 @@
     var cantTipos = 0;
     var cantTopes = 0;
     var cantServicios = 0;
+    var nombreSabana = "";
+    var comentarioSabana = "";
+
 
     function irAAdministracion() {
         window.location.href = "administracion.html";
     }
 
     function irAResultados() {
+        guardarCabecera();
         window.location.href = "resultados.html";
+    }
+
+    function guardarCabecera() {
+        nombreSabana = document.getElementById("nombreSabana").value;
+        comentarioSabana = document.getElementById("comentarioSabana").value;
+
+        sessionStorage.setItem("nombreSabana", nombreSabana);
+        sessionStorage.setItem("comentarioSabana", comentarioSabana);
+
+        console.log("Guardado en sessionStorage: " + sessionStorage.getItem("nombreSabana"));
     }
 
     function añadirTipo() {
@@ -133,21 +159,60 @@
     }
 
     function enviarTipo() {
-        selcTipo = document.getElementById("selcTipo").value;
-        cantTipos = document.getElementById("cantTipos").value;
-        console.log("Tipo seleccionado: " + selcTipo + ", Cantidad: " + cantTipos);
+        var selects = document.querySelectorAll(".selcTipo");
+        var inputs = document.querySelectorAll(".cantTipos");
+        var tipos = [];
+
+        selects.forEach(function (select, i) {
+            var selcTipo = select.value;
+            var textoTipo = select.options[select.selectedIndex].text;
+            var cantTipos = inputs[i].value;
+
+            if (selcTipo != 0) {
+                tipos.push({ selcTipo: selcTipo, textoTipo: textoTipo, cantTipos: cantTipos });
+            }
+        });
+
+        sessionStorage.setItem("tipos", JSON.stringify(tipos));
+        console.log("Tipos guardados: ", tipos);
     }
 
     function enviarTope() {
-        selcTope = document.getElementById("selcTope").value;
-        cantTopes = document.getElementById("cantTopes").value;
-        console.log("Tope seleccionado: " + selcTope + ", Cantidad: " + cantTopes);
+        var selects = document.querySelectorAll(".selcTope");
+        var inputs = document.querySelectorAll(".cantTopes");
+        var topes = [];
+
+        selects.forEach(function (select, i) {
+            var selcTope = select.value;
+            var textoTope = select.options[select.selectedIndex].text;
+            var cantTopes = inputs[i].value;
+
+            if (selcTope != 0) {
+                topes.push({ selcTope: selcTope, textoTope: textoTope, cantTopes: cantTopes });
+            }
+        });
+
+        sessionStorage.setItem("topes", JSON.stringify(topes));
+        console.log("Topes guardados: ", topes);
     }
 
     function enviarServicio() {
-        selcServ = document.getElementById("selcServ").value;
-        cantServicios = document.getElementById("cantServicios").value;
-        console.log("Servicio seleccionado: " + selcServ + ", Cantidad: " + cantServicios);
+        var selects = document.querySelectorAll(".selcServ");
+        var inputs = document.querySelectorAll(".refServicios");
+        var servicios = [];
+
+        selects.forEach(function (select, i) {
+            var selcServ = select.value;
+            var textoServ = select.options[select.selectedIndex].text;
+            var refServicios = inputs[i].value;
+
+            if (selcServ != 0) {
+                servicios.push({ selcServ: selcServ, textoServ: textoServ, refServicios: refServicios });
+            }
+        });
+
+        sessionStorage.setItem("servicios", JSON.stringify(servicios));
+        console.log("Servicios guardados: ", servicios);
     }
 
 </script>
