@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados</title>
     <link rel="stylesheet" href="stylesResultados.css">
-     <link rel="alternate" href="datos.html">
+    <link rel="alternate" href="datos.html">
     <link rel="alternate" href="administracion.html">
 </head>
+
 <body>
     <header>
         <h1 class="titulo">Proyecto</h1>
@@ -18,6 +20,10 @@
     </header>
     <main>
         <h2>Resultados</h2>
+        <div class="cabeceraSabana">
+            <p id="nombreSabana"></p>
+            <p id="comentarioSabana"></p>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -30,100 +36,158 @@
                     <th>soporte avanzado</th>
                     <th>Evolucion y mejora</th>
                     <th>Desarrollo</th>
-<!--modificable-->  <th>Comodin 1</th>
-<!--modificable-->  <th>Comodin 2</th>
-<!--modificable-->  <th>Comodin 3</th>
-<!--modificable-->  <th>Comodin 4</th>
+                    <!--modificable-->
+                    <th>Comodin 1</th>
+                    <!--modificable-->
+                    <th>Comodin 2</th>
+                    <!--modificable-->
+                    <th>Comodin 3</th>
+                    <!--modificable-->
+                    <th>Comodin 4</th>
                     <th>
-<!--editar datos-->    <button id="cambPagDatEd" onclick="irADatos()">E</button>
-<!--borrar campo-->    <button id="borCamp" onclick="BorrarCampo()">D</button> 
+                        <!--editar datos--> <button id="cambPagDatEd" onclick="irADatos()">E</button>
+                        <!--borrar campo--> <button id="borCamp" onclick="BorrarCampo()">D</button>
                     </th>
                 </tr>
             </thead>
             <tbody id="tablaResultados"></tbody>
         </table>
         <p></p>
-        <button id="enviarTab" value="EnviarTabla" onclick="enviarTabla()">Enviar</button>
+        <button id="guardarTab" value="GuardarTabla" onclick="guardarTabla()">Guardar</button>
 
-    
-    <script >
 
-        var referencia = 0;
+        <script>
 
-        function irAAdministracion() {
-            window.location.href = "administracion.html";
-        }
-        
-        function irADatos() {
-            window.location.href = "datos.html";
-        }
-        
-        function calcReferencia() {
-            if (enviarServicio()) {
-                referencia++;                           /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
-                return referencia;
-            } 
-        }
-        
-        function añadirResultadoTipo() {
-            var tabla = document.getElementById("tablaResultados");
-            var fila = document.createElement("tr")
-            fila.innerHTML =
-             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
-             "<td>" + document.getElementById("impTip").textContent +"</td>" +
-             "<td>" + document.getElementById("forTip").textContent + "</td>" +
-             "<td>" + document.getElementById("gesTip").textContent + "</td>" +
-             "<td>" + document.getElementById("infTip").textContent + "</td>" +
-             "<td>" + document.getElementById("sopTip").textContent + "</td>" +
-             "<td>" + document.getElementById("sopAvTip").textContent + "</td>" +
-             "<td>" + document.getElementById("evoMejTip").textContent + "</td>" +
-             "<td>" + document.getElementById("desTip").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin1Tip").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin2Tip").textContent + "</td>" + 
-             "<td>" + document.getElementById("comodin3Tip").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin4Tip").textContent + "</td>";
-            tabla.appendChild(fila);
-        }
+            var referencia = 0;
 
-        function añadirResultadoTope() {
-            var tabla = document.getElementById("tablaResultados");
-            var fila = document.createElement("tr")
-            fila.innerHTML =
-             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
-             "<td>" + document.getElementById("impTop").textContent +"</td>" +
-             "<td>" + document.getElementById("forTop").textContent + "</td>" +
-             "<td>" + document.getElementById("gesTop").textContent + "</td>" +
-             "<td>" + document.getElementById("infTop").textContent + "</td>" +
-             "<td>" + document.getElementById("sopTop").textContent + "</td>" +
-             "<td>" + document.getElementById("sopAvTop").textContent + "</td>" +
-             "<td>" + document.getElementById("evoMejTop").textContent + "</td>" +
-             "<td>" + document.getElementById("desTop").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin1Top").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin2Top").textContent + "</td>" + 
-             "<td>" + document.getElementById("comodin3Top").textContent + "</td>" +
-             "<td>" + document.getElementById("comodin4Top").textContent + "</td>";
-            tabla.appendChild(fila);
-        }
+            function irAAdministracion() {
+                window.location.href = "administracion.html";
+            }
 
-        function añadirResultadoServ() {
-            var tabla = document.getElementById("tablaResultados");
-            var fila = document.createElement("tr")
-            fila.innerHTML =
-             "<td>" + document.getElementById("referencia").textContent + "</td>" + 
-             "<td>" + document.getElementById("Serv").textContent +"</td>" +
-             "<td>" + document.getElementById("ServPremium").textContent + "</td>";
-            tabla.appendChild(fila);
-        }
+            function irADatos() {
+                window.location.href = "datos.html";
+            }
 
-        function BorrarCampo() {
-                                                        /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
-        }
+            document.addEventListener("DOMContentLoaded", function () {
+                var nombreSabana = sessionStorage.getItem("nombreSabana");
+                var comentarioSabana = sessionStorage.getItem("comentarioSabana");
 
-        function enviarTabla() {
-                                                                  /*aqui debo crear una funcion que recoja la tabla tal cual se muestra en la pagina y la almacene como una 
-                                                                  variable o un valor y se conecte con la API donde se almacenara*/  
-        }
+                document.getElementById("nombreSabana").textContent = nombreSabana;
+                document.getElementById("comentarioSabana").textContent = comentarioSabana;
 
-    </script>
+                var tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+                var topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+                var servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+
+                var tabla = document.getElementById("tablaResultados");
+
+                servicios.forEach(function (serv) {
+
+                    // Fila de tipos
+                    var filaTipos = document.createElement("tr");
+                    filaTipos.innerHTML =
+                        "<td>" + serv.refServicios + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 1 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 1).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 2 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 2).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 3 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 3).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 4 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 4).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 5 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 5).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 6 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 6).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 7 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 7).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 8 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 8).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 9 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 9).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 10 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 10).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 11 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 11).cantTipos : "") + "</td>" +
+                        "<td>" + (tipos.find(t => t.selcTipo == 12 && t.refServicio == serv.refServicio) ? tipos.find(t => t.selcTipo == 12).cantTipos : "") + "</td>";
+                    tabla.appendChild(filaTipos);
+
+                    // Fila de topes
+                    var filaTopes = document.createElement("tr");
+                    filaTopes.innerHTML =
+                        "<td>" + serv.refServicios + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 1 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 1).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 2 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 2).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 3 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 3).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 4 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 4).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 5 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 5).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 6 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 6).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 7 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 7).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 8 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 8).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 9 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 9).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 10 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 10).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 11 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 11).cantTopes : "") + "</td>" +
+                        "<td>" + (topes.find(t => t.selcTope == 12 && t.refServicio == serv.refServicio) ? topes.find(t => t.selcTope == 12).cantTopes : "") + "</td>";
+                    tabla.appendChild(filaTopes);
+                });
+            });
+
+            function calcReferencia() {
+                if (enviarServicio()) {
+                    referencia++;                           /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
+                    return referencia;
+                }
+            }
+
+            function añadirResultadoTipo() {
+                var tabla = document.getElementById("tablaResultados");
+                var fila = document.createElement("tr")
+                fila.innerHTML =
+                    "<td>" + document.getElementById("referencia").textContent + "</td>" +
+                    "<td>" + document.getElementById("impTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("forTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("gesTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("infTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("sopTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("sopAvTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("evoMejTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("desTip").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin1Tip").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin2Tip").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin3Tip").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin4Tip").textContent + "</td>";
+                tabla.appendChild(fila);
+            }
+
+            function añadirResultadoTope() {
+                var tabla = document.getElementById("tablaResultados");
+                var fila = document.createElement("tr")
+                fila.innerHTML =
+                    "<td>" + document.getElementById("referencia").textContent + "</td>" +
+                    "<td>" + document.getElementById("impTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("forTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("gesTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("infTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("sopTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("sopAvTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("evoMejTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("desTop").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin1Top").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin2Top").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin3Top").textContent + "</td>" +
+                    "<td>" + document.getElementById("comodin4Top").textContent + "</td>";
+                tabla.appendChild(fila);
+            }
+
+            function añadirResultadoServ() {
+                var tabla = document.getElementById("tablaResultados");
+                var fila = document.createElement("tr")
+                fila.innerHTML =
+                    "<td>" + document.getElementById("referencia").textContent + "</td>" +
+                    "<td>" + document.getElementById("Serv").textContent + "</td>" +
+                    "<td>" + document.getElementById("ServPremium").textContent + "</td>";
+                tabla.appendChild(fila);
+            }
+
+            function BorrarCampo() {
+                /*esta funcion debe integrase directamente desde la api aunque puede ser integrada desde aqui tambien, pero no esta terminada*/
+            }
+
+            function guardarTabla() {
+                /*aqui debo crear una funcion que recoja la tabla tal cual se muestra en la pagina y la almacene como una 
+                variable o un valor y se conecte con la API donde se almacenara*/
+            }
+
+        </script>
 </body>
+
 </html>
