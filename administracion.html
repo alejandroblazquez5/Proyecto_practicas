@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administracion</title>
     <link rel="stylesheet" href="stylesAdministracion.css">
-     <link rel="alternate" href="datos.html">
+    <link rel="alternate" href="datos.html">
     <link rel="alternate" href="resultados.html">
 </head>
+
 <body>
     <header>
         <h1 class="titulo">Proyecto</h1>
@@ -21,24 +23,53 @@
         <table>
             <thead>
                 <tr>
-                    <th>Referencia</th>
-                    <th>Servicio</th>
-                    <th>Enlace</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Ver</th>
                 </tr>
             </thead>
             <tbody id="tablaResultados"></tbody>
         </table>
     </main>
     <script>
-        
-        function irADatos() {
-            window.location.href = "datos.html";
-        }
-        
-        function irAResultados() {
+
+            function irADatos() {
+                window.location.href = "datos.html";
+            }
+
+            function irAResultados() {
+                window.location.href = "resultados.html";
+            }
+
+            // Al cargar la página cargamos todas las sábanas de la BD
+            document.addEventListener("DOMContentLoaded", function() {
+                fetch("http://localhost:8080/maestra")
+                    .then(function (response) { return response.json(); })
+                    .then(function (sabanas) {
+                        console.log("Sábanas: ", sabanas);
+                        var tabla = document.getElementById("tablaResultados");
+
+                        sabanas.forEach(function (sabana) {
+                            var fila = document.createElement("tr");
+                            fila.innerHTML =
+                                "<td>" + sabana.idSabana + "</td>" +
+                                "<td>" + sabana.nombre + "</td>" +
+                                "<td><button onclick='verSabana(" + sabana.idSabana + ")'>Ver</button></td>";
+                            tabla.appendChild(fila);
+                        });
+                    })
+                    .catch(function (error) {
+                        console.log("Error: " + error);
+                    });
+            });
+
+            function verSabana(id) {
+                // Guardamos el id de la sábana seleccionada en sessionStorage
+                sessionStorage.setItem("idSabana", id);
             window.location.href = "resultados.html";
-        }
-        
+            }
+
     </script>
 </body>
+
 </html>

@@ -54,14 +54,20 @@ public class MaestraService {
         return null;
     }
 
-    public void insert(Maestra m) throws SQLException {
+    public int insert(Maestra m) throws SQLException {
+    String sql = "INSERT INTO maestra (nombre, fecha, comentario) VALUES (?, ?, ?)";
         try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO maestra (nombre, fecha, comentario) VALUES (?, ?, ?)")) {
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, m.getNombre());
             ps.setDate(2, Date.valueOf(m.getFecha()));
             ps.setString(3, m.getComentario());
             ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1); // devuelve el id generado
+            }
         }
+        return -1;
     }
 
     public void update(int id, Maestra m) throws SQLException {
