@@ -37,9 +37,9 @@ public class MaestraController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody Maestra m) throws SQLException {
-        service.insert(m);
-        return ResponseEntity.ok("Creado correctamente");
+    public ResponseEntity<Integer> create(@RequestBody Maestra m) throws SQLException {
+        int id = service.insert(m);
+        return ResponseEntity.ok(id);
     }
 
     @PutMapping("/{id}")

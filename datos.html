@@ -93,7 +93,6 @@
                 <fieldset class="recServ">
                     <div class="cabserv">
                         <h2>Servicios</h2>
-                        <button id="añadirServ" value="+" onclick="añadirServ()">+</button>
                     </div>
                     <div class="datosServicios">
                         <select class="selcServ">
@@ -150,12 +149,6 @@
         const datosTopes = document.querySelector('.datosTopes');
         const clone = datosTopes.cloneNode(true);
         datosTopes.parentNode.insertBefore(clone, datosTopes.nextSibling);
-    }
-
-    function añadirServ() {
-        const datosServicios = document.querySelector('.datosServicios');
-        const clone = datosServicios.cloneNode(true);
-        datosServicios.parentNode.insertBefore(clone, datosServicios.nextSibling);
     }
 
     function enviarTipo() {

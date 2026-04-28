@@ -24,9 +24,9 @@ public class ServiciosController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody Servicios s) throws SQLException {
-        service.insert(s);
-        return ResponseEntity.ok("Creado correctamente");
+    public ResponseEntity<Integer> create(@RequestBody Servicios s) throws SQLException {
+        int id = service.insert(s);
+        return ResponseEntity.ok(id);
     }
 
     @PutMapping("/{id}")
