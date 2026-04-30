@@ -58,7 +58,7 @@
 
         <script>
 
-            var referencia = 0;
+            let referencia = 0;
 
             function irAAdministracion() {
                 window.location.href = "administracion.html";
@@ -70,27 +70,27 @@
 
             document.addEventListener("DOMContentLoaded", function () {
 
-                var nombreSabana = sessionStorage.getItem("nombreSabana");
-                var comentarioSabana = sessionStorage.getItem("comentarioSabana");
+                let nombreSabana = sessionStorage.getItem("nombreSabana");
+                let comentarioSabana = sessionStorage.getItem("comentarioSabana");
 
                 document.getElementById("nombreSabana").textContent = nombreSabana;
                 document.getElementById("comentarioSabana").textContent = comentarioSabana;
 
-                var tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
-                var topes = JSON.parse(sessionStorage.getItem("topes")) || [];
-                var servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+                let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+                let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+                let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
 
                 console.log("Tipos:", tipos);
                 console.log("Topes:", topes);
                 console.log("Servicios:", servicios);
 
-                var tabla = document.getElementById("tablaResultados");
+                let tabla = document.getElementById("tablaResultados");
 
                 servicios.forEach(function (serv) {
-                    var filaTipos = document.createElement("tr");
+                    let filaTipos = document.createElement("tr");
 
                     function getCantTipos(num) {
-                        var encontrado = tipos.find(function (t) {
+                        let encontrado = tipos.find(function (t) {
                             return t.selcTipo == num;
                         });
 
@@ -113,10 +113,10 @@
                         "<td>" + getCantTipos(12) + "</td>";
                     tabla.appendChild(filaTipos);
 
-                    var filaTopes = document.createElement("tr");
+                    let filaTopes = document.createElement("tr");
 
                     function getCantTopes(num) {
-                        var encontrado = topes.find(function (t) {
+                        let encontrado = topes.find(function (t) {
                             return t.selcTope == num;
                         });
 
@@ -142,13 +142,13 @@
             });
 
             function guardarTabla() {
-                var nombreSabana = sessionStorage.getItem("nombreSabana");
-                var comentarioSabana = sessionStorage.getItem("comentarioSabana");
-                var tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
-                var topes = JSON.parse(sessionStorage.getItem("topes")) || [];
-                var servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+                let nombreSabana = sessionStorage.getItem("nombreSabana");
+                let comentarioSabana = sessionStorage.getItem("comentarioSabana");
+                let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+                let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+                let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
 
-                var sabana = {
+                let sabana = {
                     nombre: nombreSabana,
                     comentario: comentarioSabana,
                     fecha: new Date().toISOString().split("T")[0]
@@ -166,7 +166,7 @@
 
                         // Paso 2 — Guardar cada servicio
                         servicios.forEach(function (serv) {
-                            var servicio = {
+                            let servicio = {
                                 idSabana: idSabana,
                                 concepto: serv.textoServ,
                                 horas: null,
@@ -190,7 +190,7 @@
 
                                     // Paso 3 — Guardar los tipos asociados al servicio
                                     tipos.forEach(function (tipo) {
-                                        var margen = {
+                                        let margen = {
                                             idSabana: idSabana,
                                             idTipoMargen: tipo.selcTipo,
                                             margen: tipo.cantTipos
@@ -205,7 +205,7 @@
 
                                     // Paso 4 — Guardar los topes asociados al servicio
                                     topes.forEach(function (tope) {
-                                        var topeObj = {
+                                        let topeObj = {
                                             idSabana: idSabana,
                                             idTipoTopes: tope.selcTope,
                                             topes: tope.cantTopes
@@ -227,8 +227,7 @@
                         alert("Error al guardar");
                     });
             }
-
-        </script>
+</script>
 </body>
 
 </html>
