@@ -47,10 +47,10 @@
                     .then(function (response) { return response.json(); })
                     .then(function (sabanas) {
                         console.log("Sábanas: ", sabanas);
-                        var tabla = document.getElementById("tablaResultados");
+                        let tabla = document.getElementById("tablaResultados");
 
                         sabanas.forEach(function (sabana) {
-                            var fila = document.createElement("tr");
+                            let fila = document.createElement("tr");
                             fila.innerHTML =
                                 "<td>" + sabana.idSabana + "</td>" +
                                 "<td>" + sabana.nombre + "</td>" +

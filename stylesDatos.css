@@ -1,54 +1,80 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --light-bg: #ecf0f1;
+    --white: #ffffff;
+    --text-dark: #2c3e50;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --border-radius: 6px;
+    --transition: all 0.3s ease;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+}
+
 header {
-    background-color: lightblue;
-    padding: 1.5rem 5%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 .titulo{
     color: var(--white);
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
-    font-family: 'Arial', sans-serif;
+    font-family: var(--font-main);
+    letter-spacing: 0.5px;
 }
 fieldset{
-    background-color: lightblue;
+    background-color: var(--light-bg);
     width: fit-content;
-    padding: 20px;   
+    padding: 20px;
+    border: 2px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
 }
-.cabtip{
+
+fieldset:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.cabtip, .cabtop, .cabserv {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
-.datosTipos{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-.cabtop{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.datosTopes{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-.cabserv{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.datosServicios{
+
+.datosTipos, .cabtop, .datosTopes, .cabserv, .datosServicios {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -56,36 +82,96 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 .tiptopserv{
     margin-top: 2rem;
     display: flex;
     justify-content: space-around;
     width: 100%;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
+
 h2{
     font-size: 1.7rem;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 20px;
+    font-family: var(--font-main);
+    margin-top: 2rem;
     text-align: center;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
 }
-button{
-    padding: 0.5rem 1rem;
+
+button {
+    padding: 0.7rem 1.5rem;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 13px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    transition: var(--transition);
+    box-shadow: var(--shadow);
 }
-select, input{
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+
+button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
 }
+
+button:active {
+    transform: translateY(0);
+}
+
+select, input {
+    padding: 0.7rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--light-bg);
+    font-family: var(--font-main);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
 .navBtn{
     display: flex;
     gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
 footer {
-    background-color: lightblue;
-    padding: 1rem 5%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    padding: 2rem 5%;
     text-align: center;
+    color: var(--white);
+    margin-top: 3rem;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navBtn {
+        gap: 15px;
+    }
+    
+    .tiptopserv {
+        flex-direction: column;
+    }
 }

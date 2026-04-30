@@ -110,14 +110,14 @@
 </body>
 <script>
 
-    var selcTipo = 0;
-    var selcTope = 0;
-    var selcServ = 0;
-    var cantTipos = 0;
-    var cantTopes = 0;
-    var cantServicios = 0;
-    var nombreSabana = "";
-    var comentarioSabana = "";
+    let selcTipo = 0;
+    let selcTope = 0;
+    let selcServ = 0;
+    let cantTipos = 0;
+    let cantTopes = 0;
+    let cantServicios = 0;
+    let nombreSabana = "";
+    let comentarioSabana = "";
 
 
     function irAAdministracion() {
@@ -152,14 +152,14 @@
     }
 
     function enviarTipo() {
-        var selects = document.querySelectorAll(".selcTipo");
-        var inputs = document.querySelectorAll(".cantTipos");
-        var tipos = [];
+        let selects = document.querySelectorAll(".selcTipo");
+        let inputs = document.querySelectorAll(".cantTipos");
+        let tipos = [];
 
         selects.forEach(function (select, i) {
-            var selcTipo = select.value;
-            var textoTipo = select.options[select.selectedIndex].text;
-            var cantTipos = inputs[i].value;
+            let selcTipo = select.value;
+            let textoTipo = select.options[select.selectedIndex].text;
+            let cantTipos = inputs[i].value;
 
             if (selcTipo != 0) {
                 tipos.push({ selcTipo: selcTipo, textoTipo: textoTipo, cantTipos: cantTipos });
@@ -171,14 +171,14 @@
     }
 
     function enviarTope() {
-        var selects = document.querySelectorAll(".selcTope");
-        var inputs = document.querySelectorAll(".cantTopes");
-        var topes = [];
+        let selects = document.querySelectorAll(".selcTope");
+        let inputs = document.querySelectorAll(".cantTopes");
+        let topes = [];
 
         selects.forEach(function (select, i) {
-            var selcTope = select.value;
-            var textoTope = select.options[select.selectedIndex].text;
-            var cantTopes = inputs[i].value;
+            let selcTope = select.value;
+            let textoTope = select.options[select.selectedIndex].text;
+            let cantTopes = inputs[i].value;
 
             if (selcTope != 0) {
                 topes.push({ selcTope: selcTope, textoTope: textoTope, cantTopes: cantTopes });
@@ -190,14 +190,14 @@
     }
 
     function enviarServicio() {
-        var selects = document.querySelectorAll(".selcServ");
-        var inputs = document.querySelectorAll(".refServicios");
-        var servicios = [];
+        let selects = document.querySelectorAll(".selcServ");
+        let inputs = document.querySelectorAll(".refServicios");
+        let servicios = [];
 
         selects.forEach(function (select, i) {
-            var selcServ = select.value;
-            var textoServ = select.options[select.selectedIndex].text;
-            var refServicios = inputs[i].value;
+            let selcServ = select.value;
+            let textoServ = select.options[select.selectedIndex].text;
+            let refServicios = inputs[i].value;
 
             if (selcServ != 0) {
                 servicios.push({ selcServ: selcServ, textoServ: textoServ, refServicios: refServicios });
