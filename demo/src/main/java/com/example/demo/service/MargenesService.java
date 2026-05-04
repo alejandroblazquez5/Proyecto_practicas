@@ -15,15 +15,14 @@ import com.example.demo.model.Margenes;
 
 @Service
 public class MargenesService {
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto", "root", "root");
     }
 
     public List<Margenes> findAll() throws SQLException {
         List<Margenes> list = new ArrayList<>();
-        try (Connection conn = getConnection();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery("SELECT * FROM margenes")) {
+        try (Connection conn = getConnection(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery("SELECT * FROM margenes")) {
             while (rs.next()) {
                 Margenes m = new Margenes();
                 m.setIdMargen(rs.getInt("id_margen"));
@@ -37,8 +36,7 @@ public class MargenesService {
     }
 
     public Margenes findById(int id) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM margenes WHERE id_margen = ?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("SELECT * FROM margenes WHERE id_margen = ?")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -54,8 +52,7 @@ public class MargenesService {
     }
 
     public void insert(Margenes m) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO margenes (id_sabana, id_tipoMargen, margen) VALUES (?,?,?)")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO margenes (id_sabana, id_tipoMargen, margen) VALUES (?,?,?)")) {
             ps.setInt(1, m.getIdSabana());
             ps.setInt(2, m.getIdTipoMargen());
             ps.setBigDecimal(3, m.getMargen());
@@ -64,8 +61,7 @@ public class MargenesService {
     }
 
     public void update(int id, Margenes m) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("UPDATE margenes SET id_sabana=?, id_tipoMargen=?, margen=? WHERE id_margen=?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("UPDATE margenes SET id_sabana=?, id_tipoMargen=?, margen=? WHERE id_margen=?")) {
             ps.setInt(1, m.getIdSabana());
             ps.setInt(2, m.getIdTipoMargen());
             ps.setBigDecimal(3, m.getMargen());
@@ -75,9 +71,16 @@ public class MargenesService {
     }
 
     public void delete(int id) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM margenes WHERE id_margen=?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("DELETE FROM margenes WHERE id_margen=?")) {
             ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    public void deleteBySabana(int idSabana) throws SQLException {
+        String sql = "DELETE FROM margenes WHERE id_sabana=?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idSabana);
             ps.executeUpdate();
         }
     }

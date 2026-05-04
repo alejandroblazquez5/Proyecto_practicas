@@ -19,8 +19,9 @@ import com.example.demo.service.MargenesService;
 @RestController
 @RequestMapping("/margenes")
 public class MargenesController {
-    
+
     private final MargenesService service;
+
     public MargenesController(MargenesService service) {
         this.service = service;
     }
@@ -53,4 +54,11 @@ public class MargenesController {
         service.delete(id);
         return ResponseEntity.ok("Eliminado correctamente");
     }
+
+    @DeleteMapping("/sabana/{idSabana}")
+    public ResponseEntity<String> deleteBySabana(@PathVariable int idSabana) throws SQLException {
+        service.deleteBySabana(idSabana);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
+
 }

@@ -21,10 +21,15 @@ import com.example.demo.service.TopesService;
 public class TopesController {
 
     private final TopesService service;
-    public TopesController(TopesService service) { this.service = service; }
+
+    public TopesController(TopesService service) {
+        this.service = service;
+    }
 
     @GetMapping
-    public List<Topes> getAll() throws SQLException { return service.findAll(); }
+    public List<Topes> getAll() throws SQLException {
+        return service.findAll();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Topes> getById(@PathVariable int id) throws SQLException {
@@ -49,5 +54,11 @@ public class TopesController {
         service.delete(id);
         return ResponseEntity.ok("Eliminado correctamente");
     }
-}
 
+    @DeleteMapping("/sabana/{idSabana}")
+    public ResponseEntity<String> deleteBySabana(@PathVariable int idSabana) throws SQLException {
+        service.deleteBySabana(idSabana);
+        return ResponseEntity.ok("Eliminado correctamente");
+    }
+
+}

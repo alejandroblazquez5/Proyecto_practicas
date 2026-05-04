@@ -92,12 +92,14 @@ table{
     margin-top: 2rem;
     margin-bottom: 2rem;
     width: 100%;
+    font-size: 12px; 
     border-collapse: collapse;
     text-align: center;
     background-color: var(--white);
     box-shadow: var(--shadow);
     border-radius: var(--border-radius);
     overflow: hidden;
+    table-layout: fixed;
 }
 
 table th {
@@ -181,4 +183,24 @@ footer {
     table th, table td {
         padding: 0.6rem;
     }
+}
+
+th, td {
+    padding: 4px 6px;       
+    white-space: nowrap;    
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#cambPagDatEd, #borCamp {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    padding: 0;
+}
+
+.cabeceraSabana {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
