@@ -98,9 +98,9 @@
                         <select class="selcServ">
                             <option value="0" selected disabled>Selecciona un servicio</option>
                             <option value="1" class="Serv">Servicio de mantenimiento de desarrollo</option>
-                            <option value="2" class="ServPremium">Servicio de mantenimiento de desarrollo premium</option>
+                            <option value="2" class="ServPremium">Servicio de mantenimiento de desarrollo premium
+                            </option>
                         </select>
-                        <input type="number" class="refServicios" placeholder="Introduzca la referencia">
                     </div>
                     <button id="enviarServ" value="EnviarServicios" onclick="enviarServicio()">Enviar</button>
                 </fieldset>
@@ -191,16 +191,14 @@
 
     function enviarServicio() {
         let selects = document.querySelectorAll(".selcServ");
-        let inputs = document.querySelectorAll(".refServicios");
         let servicios = [];
 
         selects.forEach(function (select, i) {
             let selcServ = select.value;
             let textoServ = select.options[select.selectedIndex].text;
-            let refServicios = inputs[i].value;
 
             if (selcServ != 0) {
-                servicios.push({ selcServ: selcServ, textoServ: textoServ, refServicios: refServicios });
+                servicios.push({ selcServ: selcServ, textoServ: textoServ, refServicios: selcServ });
             }
         });
 
@@ -208,6 +206,22 @@
         console.log("Servicios guardados: ", servicios);
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        var idSabana = sessionStorage.getItem("idSabana");
+        console.log("idSabana: " + idSabana);
+
+        // Si hay un idSabana guardado significa que venimos de administracion
+        // y hay que cargar los datos de esa sábana
+        if (idSabana) {
+            fetch("http://localhost:8080/maestra/" + idSabana)
+                .then(function (response) { return response.json(); })
+                .then(function (sabana) {
+                    console.log("Sábana cargada: ", sabana);
+                    document.getElementById("nombreSabana").value = sabana.nombre;
+                    document.getElementById("comentarioSabana").value = sabana.comentario;
+                });
+        }
+    });
 </script>
 
 </html>

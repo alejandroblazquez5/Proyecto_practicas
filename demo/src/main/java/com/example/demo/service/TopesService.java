@@ -15,15 +15,14 @@ import com.example.demo.model.Topes;
 
 @Service
 public class TopesService {
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto", "root", "root");
     }
 
     public List<Topes> findAll() throws SQLException {
         List<Topes> list = new ArrayList<>();
-        try (Connection conn = getConnection();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery("SELECT * FROM topes")) {
+        try (Connection conn = getConnection(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery("SELECT * FROM topes")) {
             while (rs.next()) {
                 Topes t = new Topes();
                 t.setIdTopes(rs.getInt("id_topes"));
@@ -37,8 +36,7 @@ public class TopesService {
     }
 
     public Topes findById(int id) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM topes WHERE id_topes = ?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("SELECT * FROM topes WHERE id_topes = ?")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -54,8 +52,7 @@ public class TopesService {
     }
 
     public void insert(Topes t) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("INSERT INTO topes (id_sabana, id_tipoTopes, topes) VALUES (?,?,?)")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("INSERT INTO topes (id_sabana, id_tipoTopes, topes) VALUES (?,?,?)")) {
             ps.setInt(1, t.getIdSabana());
             ps.setInt(2, t.getIdTipoTopes());
             ps.setInt(3, t.getTopes());
@@ -64,8 +61,7 @@ public class TopesService {
     }
 
     public void update(int id, Topes t) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("UPDATE topes SET id_sabana=?, id_tipoTopes=?, topes=? WHERE id_topes=?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("UPDATE topes SET id_sabana=?, id_tipoTopes=?, topes=? WHERE id_topes=?")) {
             ps.setInt(1, t.getIdSabana());
             ps.setInt(2, t.getIdTipoTopes());
             ps.setInt(3, t.getTopes());
@@ -75,10 +71,18 @@ public class TopesService {
     }
 
     public void delete(int id) throws SQLException {
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement("DELETE FROM topes WHERE id_topes=?")) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement("DELETE FROM topes WHERE id_topes=?")) {
             ps.setInt(1, id);
             ps.executeUpdate();
         }
     }
+
+    public void deleteBySabana(int idSabana) throws SQLException {
+        String sql = "DELETE FROM topes WHERE id_sabana=?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idSabana);
+            ps.executeUpdate();
+        }
+    }
+
 }

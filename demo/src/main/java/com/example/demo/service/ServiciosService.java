@@ -154,4 +154,13 @@ public class ServiciosService {
             ps.executeUpdate();
         }
     }
+
+    public void deleteBySabana(int idSabana) throws SQLException {
+        String sql = "DELETE FROM servicios WHERE id_sabana=?";
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idSabana);
+            ps.executeUpdate();
+        }
+    }
+
 }

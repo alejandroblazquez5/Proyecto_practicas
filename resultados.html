@@ -24,6 +24,7 @@
             <p id="nombreSabana"></p>
             <p id="comentarioSabana"></p>
         </div>
+        <div style="overflow-x: auto; width: 100%;"></div>
         <table>
             <thead>
                 <tr>
@@ -36,198 +37,244 @@
                     <th>soporte avanzado</th>
                     <th>Evolucion y mejora</th>
                     <th>Desarrollo</th>
-                    <!--modificable-->
                     <th>Comodin 1</th>
-                    <!--modificable-->
                     <th>Comodin 2</th>
-                    <!--modificable-->
                     <th>Comodin 3</th>
-                    <!--modificable-->
                     <th>Comodin 4</th>
                     <th>
-                        <!--editar datos--> <button id="cambPagDatEd" onclick="irADatos()">E</button>
-                        <!--borrar campo--> <button id="borCamp" onclick="BorrarCampo()">D</button>
+                        <button id="cambPagDatEd" onclick="irADatos()">E</button>
                     </th>
                 </tr>
             </thead>
             <tbody id="tablaResultados"></tbody>
         </table>
+        </div>
         <p></p>
         <button id="guardarTab" value="GuardarTabla" onclick="guardarTabla()">Guardar</button>
+    </main>
 
+    <script>
 
-        <script>
+        function irAAdministracion() {
+            window.location.href = "administracion.html";
+        }
 
-            let referencia = 0;
+        function irADatos() {
+            sessionStorage.removeItem("idSabana");
+            window.location.href = "datos.html";
+        }
 
-            function irAAdministracion() {
-                window.location.href = "administracion.html";
-            }
+        // ── FUNCIONES AUXILIARES ─────────────────────────────
+        function getCantTipos(num, tipos) {
+            let encontrado = tipos.find(function (t) { return t.selcTipo == num; });
+            return encontrado ? encontrado.cantTipos : "";
+        }
 
-            function irADatos() {
-                window.location.href = "datos.html";
-            }
+        function getCantTopes(num, topes) {
+            let encontrado = topes.find(function (t) { return t.selcTope == num; });
+            return encontrado ? encontrado.cantTopes : "";
+        }
 
-            document.addEventListener("DOMContentLoaded", function () {
+        // ── PINTAR TABLA ─────────────────────────────────────
+        function cargarTabla() {
+            let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+            let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+            let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
 
-                let nombreSabana = sessionStorage.getItem("nombreSabana");
-                let comentarioSabana = sessionStorage.getItem("comentarioSabana");
+            if (servicios.length == 0) return;
 
-                document.getElementById("nombreSabana").textContent = nombreSabana;
-                document.getElementById("comentarioSabana").textContent = comentarioSabana;
+            let tabla = document.getElementById("tablaResultados");
+            tabla.innerHTML = ""; // limpiar antes de pintar
 
-                let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
-                let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
-                let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+            servicios.forEach(function (serv) {
+                // Fila de tipos
+                let filaTipos = document.createElement("tr");
+                filaTipos.innerHTML =
+                    "<td>" + serv.refServicios + "</td>" +
+                    "<td>" + getCantTipos(1, tipos) + "</td>" +
+                    "<td>" + getCantTipos(2, tipos) + "</td>" +
+                    "<td>" + getCantTipos(3, tipos) + "</td>" +
+                    "<td>" + getCantTipos(4, tipos) + "</td>" +
+                    "<td>" + getCantTipos(5, tipos) + "</td>" +
+                    "<td>" + getCantTipos(6, tipos) + "</td>" +
+                    "<td>" + getCantTipos(7, tipos) + "</td>" +
+                    "<td>" + getCantTipos(8, tipos) + "</td>" +
+                    "<td>" + getCantTipos(9, tipos) + "</td>" +
+                    "<td>" + getCantTipos(10, tipos) + "</td>" +
+                    "<td>" + getCantTipos(11, tipos) + "</td>" +
+                    "<td>" + getCantTipos(12, tipos) + "</td>";
+                tabla.appendChild(filaTipos);
 
-                console.log("Tipos:", tipos);
-                console.log("Topes:", topes);
-                console.log("Servicios:", servicios);
+                // Fila de topes
+                let filaTopes = document.createElement("tr");
+                filaTopes.innerHTML =
+                    "<td>" + serv.refServicios + "</td>" +
+                    "<td>" + getCantTopes(1, topes) + "</td>" +
+                    "<td>" + getCantTopes(2, topes) + "</td>" +
+                    "<td>" + getCantTopes(3, topes) + "</td>" +
+                    "<td>" + getCantTopes(4, topes) + "</td>" +
+                    "<td>" + getCantTopes(5, topes) + "</td>" +
+                    "<td>" + getCantTopes(6, topes) + "</td>" +
+                    "<td>" + getCantTopes(7, topes) + "</td>" +
+                    "<td>" + getCantTopes(8, topes) + "</td>" +
+                    "<td>" + getCantTopes(9, topes) + "</td>" +
+                    "<td>" + getCantTopes(10, topes) + "</td>" +
+                    "<td>" + getCantTopes(11, topes) + "</td>" +
+                    "<td>" + getCantTopes(12, topes) + "</td>";
+                tabla.appendChild(filaTopes);
+                // Ocultar columnas de comodín si están vacías
+                [9, 10, 11, 12].forEach(function (num) {
+                    // Buscamos si hay algún valor en tipos o topes para ese comodín
+                    var tieneTipo = tipos.find(function (t) { return t.selcTipo == num; });
+                    var tieneTope = topes.find(function (t) { return t.selcTope == num; });
 
-                let tabla = document.getElementById("tablaResultados");
+                    // El índice de la columna en la tabla (comodin1=9, comodin2=10...)
+                    var colIndex = num; // columna 9 = comodin1, etc.
 
-                servicios.forEach(function (serv) {
-                    let filaTipos = document.createElement("tr");
+                    if (!tieneTipo && !tieneTope) {
+                        // Ocultar la cabecera
+                        var ths = document.querySelectorAll("thead tr th");
+                        if (ths[colIndex]) ths[colIndex].style.display = "none";
 
-                    function getCantTipos(num) {
-                        let encontrado = tipos.find(function (t) {
-                            return t.selcTipo == num;
-                        });
-
-                        return encontrado ? encontrado.cantTipos : "";
+                        // Ocultar las celdas de esa columna en cada fila
+                        var tds = document.querySelectorAll("tbody tr td:nth-child(" + (colIndex + 1) + ")");
+                        tds.forEach(function (td) { td.style.display = "none"; });
                     }
-
-                    filaTipos.innerHTML =
-                        "<td>" + serv.refServicios + "</td>" +
-                        "<td>" + getCantTipos(1) + "</td>" +
-                        "<td>" + getCantTipos(2) + "</td>" +
-                        "<td>" + getCantTipos(3) + "</td>" +
-                        "<td>" + getCantTipos(4) + "</td>" +
-                        "<td>" + getCantTipos(5) + "</td>" +
-                        "<td>" + getCantTipos(6) + "</td>" +
-                        "<td>" + getCantTipos(7) + "</td>" +
-                        "<td>" + getCantTipos(8) + "</td>" +
-                        "<td>" + getCantTipos(9) + "</td>" +
-                        "<td>" + getCantTipos(10) + "</td>" +
-                        "<td>" + getCantTipos(11) + "</td>" +
-                        "<td>" + getCantTipos(12) + "</td>";
-                    tabla.appendChild(filaTipos);
-
-                    let filaTopes = document.createElement("tr");
-
-                    function getCantTopes(num) {
-                        let encontrado = topes.find(function (t) {
-                            return t.selcTope == num;
-                        });
-
-                        return encontrado ? encontrado.cantTopes : "";
-                    }
-
-                    filaTopes.innerHTML =
-                        "<td>" + serv.refServicios + "</td>" +
-                        "<td>" + getCantTopes(1) + "</td>" +
-                        "<td>" + getCantTopes(2) + "</td>" +
-                        "<td>" + getCantTopes(3) + "</td>" +
-                        "<td>" + getCantTopes(4) + "</td>" +
-                        "<td>" + getCantTopes(5) + "</td>" +
-                        "<td>" + getCantTopes(6) + "</td>" +
-                        "<td>" + getCantTopes(7) + "</td>" +
-                        "<td>" + getCantTopes(8) + "</td>" +
-                        "<td>" + getCantTopes(9) + "</td>" +
-                        "<td>" + getCantTopes(10) + "</td>" +
-                        "<td>" + getCantTopes(11) + "</td>" +
-                        "<td>" + getCantTopes(12) + "</td>";
-                    tabla.appendChild(filaTopes);
                 });
             });
+        }
 
-            function guardarTabla() {
+        // ── AL CARGAR LA PÁGINA ──────────────────────────────
+        document.addEventListener("DOMContentLoaded", function () {
+            let idSabana = sessionStorage.getItem("idSabana");
+
+            // Si venimos de administracion cargamos de la BD
+            if (idSabana) {
+                fetch("http://localhost:8080/maestra/" + idSabana)
+                    .then(function (response) { return response.json(); })
+                    .then(function (sabana) {
+                        document.getElementById("nombreSabana").textContent = sabana.nombre;
+                        document.getElementById("comentarioSabana").textContent = sabana.comentario;
+                    });
+
+                fetch("http://localhost:8080/margenes")
+                    .then(function (response) { return response.json(); })
+                    .then(function (margenes) {
+                        let tipos = margenes
+                            .filter(function (m) { return m.idSabana == idSabana; })
+                            .map(function (m) { return { selcTipo: m.idTipoMargen, cantTipos: m.margen }; });
+                        sessionStorage.setItem("tipos", JSON.stringify(tipos));
+                        cargarTabla();
+                    });
+
+                fetch("http://localhost:8080/topes")
+                    .then(function (response) { return response.json(); })
+                    .then(function (topes) {
+                        let topesF = topes
+                            .filter(function (t) { return t.idSabana == idSabana; })
+                            .map(function (t) { return { selcTope: t.idTipoTopes, cantTopes: t.topes }; });
+                        sessionStorage.setItem("topes", JSON.stringify(topesF));
+                        cargarTabla();
+                    });
+
+                fetch("http://localhost:8080/servicios")
+                    .then(function (response) { return response.json(); })
+                    .then(function (servicios) {
+                        let serviciosF = servicios
+                            .filter(function (s) { return s.idSabana == idSabana; })
+                            .map(function (s) { return { selcServ: s.idServicios, textoServ: s.concepto, refServicios: s.idServicios }; });
+                        sessionStorage.setItem("servicios", JSON.stringify(serviciosF));
+                        cargarTabla();
+                    });
+
+            } else {
+                // Si venimos de datos cargamos del sessionStorage
                 let nombreSabana = sessionStorage.getItem("nombreSabana");
                 let comentarioSabana = sessionStorage.getItem("comentarioSabana");
-                let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
-                let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
-                let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+                document.getElementById("nombreSabana").textContent = nombreSabana;
+                document.getElementById("comentarioSabana").textContent = comentarioSabana;
+                cargarTabla();
+            }
+        });
 
-                let sabana = {
-                    nombre: nombreSabana,
-                    comentario: comentarioSabana,
-                    fecha: new Date().toISOString().split("T")[0]
-                };
+        // ── GUARDAR EN LA BD ─────────────────────────────────
+        function guardarTabla() {
+            let nombreSabana = sessionStorage.getItem("nombreSabana");
+            let comentarioSabana = sessionStorage.getItem("comentarioSabana");
+            let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+            let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+            let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
 
-                // Paso 1 — Guardar la sábana y obtener su id
-                fetch("http://localhost:8080/maestra", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(sabana)
-                })
-                    .then(function (response) { return response.json(); })
-                    .then(function (idSabana) {
-                        console.log("Sábana guardada con id: " + idSabana);
+            let sabana = {
+                nombre: nombreSabana,
+                comentario: comentarioSabana,
+                fecha: new Date().toISOString().split("T")[0]
+            };
 
-                        // Paso 2 — Guardar cada servicio
-                        servicios.forEach(function (serv) {
-                            let servicio = {
-                                idSabana: idSabana,
-                                concepto: serv.textoServ,
-                                horas: null,
-                                costesH: null,
-                                mult: null,
-                                coste: null,
-                                topeLicitacion: null,
-                                margen: null,
-                                des: null,
-                                pvp: null
-                            };
+            fetch("http://localhost:8080/maestra", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(sabana)
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (idSabana) {
+                    console.log("Sábana guardada con id: " + idSabana);
 
-                            fetch("http://localhost:8080/servicios", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(servicio)
-                            })
-                                .then(function (response) { return response.json(); })
-                                .then(function (idServicio) {
-                                    console.log("Servicio guardado con id: " + idServicio);
+                    servicios.forEach(function (serv) {
+                        let servicio = {
+                            idSabana: idSabana,
+                            concepto: serv.textoServ,
+                            horas: null, costesH: null, mult: null,
+                            coste: null, topeLicitacion: null,
+                            margen: null, des: null, pvp: null
+                        };
 
-                                    // Paso 3 — Guardar los tipos asociados al servicio
-                                    tipos.forEach(function (tipo) {
-                                        let margen = {
+                        fetch("http://localhost:8080/servicios", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(servicio)
+                        })
+                            .then(function (response) { return response.json(); })
+                            .then(function (idServicio) {
+                                console.log("Servicio guardado con id: " + idServicio);
+
+                                tipos.forEach(function (tipo) {
+                                    fetch("http://localhost:8080/margenes", {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
                                             idSabana: idSabana,
                                             idTipoMargen: tipo.selcTipo,
                                             margen: tipo.cantTipos
-                                        };
-                                        fetch("http://localhost:8080/margenes", {
-                                            method: "POST",
-                                            headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify(margen)
                                         })
-                                            .then(function () { console.log("Tipo guardado"); });
-                                    });
+                                    }).then(function () { console.log("Tipo guardado"); });
+                                });
 
-                                    // Paso 4 — Guardar los topes asociados al servicio
-                                    topes.forEach(function (tope) {
-                                        let topeObj = {
+                                topes.forEach(function (tope) {
+                                    fetch("http://localhost:8080/topes", {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
                                             idSabana: idSabana,
                                             idTipoTopes: tope.selcTope,
                                             topes: tope.cantTopes
-                                        };
-                                        fetch("http://localhost:8080/topes", {
-                                            method: "POST",
-                                            headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify(topeObj)
                                         })
-                                            .then(function () { console.log("Tope guardado"); });
-                                    });
+                                    }).then(function () { console.log("Tope guardado"); });
                                 });
-                        });
-
-                        alert("Todo guardado correctamente");
-                    })
-                    .catch(function (error) {
-                        console.log("Error: " + error);
-                        alert("Error al guardar");
+                            });
                     });
-            }
-</script>
+
+                    // Limpiar sessionStorage para la próxima sábana
+                    sessionStorage.removeItem("idSabana");
+                    alert("Todo guardado correctamente");
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error);
+                    alert("Error al guardar");
+                });
+        }
+
+    </script>
 </body>
 
 </html>
