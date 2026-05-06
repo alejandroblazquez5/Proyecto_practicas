@@ -55,16 +55,17 @@
 
     <script>
 
+        //Funcion para ir a administracion.html
         function irAAdministracion() {
             window.location.href = "administracion.html";
         }
 
+        //Funcion para ir a datos.html
         function irADatos() {
             // Guardamos las filas actuales en filasGuardadas
             let tiposActuales = JSON.parse(sessionStorage.getItem("tipos")) || [];
             let topesActuales = JSON.parse(sessionStorage.getItem("topes")) || [];
             let serviciosActuales = JSON.parse(sessionStorage.getItem("servicios")) || [];
-
             let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
             filasGuardadas.push({ tipos: tiposActuales, topes: topesActuales, servicios: serviciosActuales });
             sessionStorage.setItem("filasGuardadas", JSON.stringify(filasGuardadas));
@@ -90,12 +91,12 @@
         }
 
         // ── PINTAR TABLA ─────────────────────────────────────
+        //Esta funcion coge los datos de datos.html 
         function cargarTabla() {
             let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
             let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
             let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
             let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
-
             let tabla = document.getElementById("tablaResultados");
             tabla.innerHTML = "";
 
@@ -125,7 +126,7 @@
                 }
             });
         }
-
+        //Estafuncion es la que le da la estructura a la tabla, crea las celdas de la tabla con innerHtml
         function pintarFila(tabla, serv, tipos, topes) {
             let fila = document.createElement("tr");
             fila.innerHTML =
@@ -155,9 +156,11 @@
 
         // ── AL CARGAR LA PÁGINA ──────────────────────────────
         document.addEventListener("DOMContentLoaded", function () {
+            //Estas 3 lineas son solo para comprobar por consola si los datos llegan
             console.log("tipos al cargar:", sessionStorage.getItem("tipos"));
             console.log("topes al cargar:", sessionStorage.getItem("topes"));
             console.log("servicios al cargar:", sessionStorage.getItem("servicios"));
+            
             let idSabana = sessionStorage.getItem("idSabana");
 
             // Si venimos de administracion cargamos de la BD
