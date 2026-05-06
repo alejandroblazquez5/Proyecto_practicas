@@ -15,7 +15,7 @@
         <h1 class="titulo">Proyecto</h1>
         <div class="navBtn">
             <button id="cambPagAdm" onclick="irAAdministracion()">Ir a Administracion</button>
-            <button id="cambPagRes" onclick="irAResultados()">Ir a resultados</button>
+            <button id="cambPagRes" onclick="irAResultados()">Mostrar tabla actual</button>
         </div>
     </header>
     <main>
@@ -23,6 +23,7 @@
         <div>
             <input type="text" id="nombreSabana" placeholder="Introduzca el nombre de la sabana">
             <input type="text" id="comentarioSabana" placeholder="Introduzca un comentario sobre la sabana">
+            <button id="btnAplicCambios" onclick="irAResultados()">Aplicar cambios</button>
         </div>
         <div class="tiptopserv">
             <div class="Tipos">
@@ -124,37 +125,52 @@
         window.location.href = "administracion.html";
     }
 
+    //Funcion para ir a administracion.html
     function irAResultados() {
+        let nombre = document.getElementById("nombreSabana").value;
+
+        //Este if hace que si le das al boton que lleva esta funcion y no le has puesto nombre a la sabana te saltara una alerta y no t dejara avanzar
+        if (!nombre) {
+            alert("Por favor, introduce un nombre para la sábana antes de continuar.");
+            return;
+        }
+
         guardarCabecera();
         window.location.href = "resultados.html";
     }
 
+    //Esta funcion sirve para que cuando edites una tabla no se borre lo que tenia antes esta tabla
     function guardarCabecera() {
         nombreSabana = document.getElementById("nombreSabana").value;
         comentarioSabana = document.getElementById("comentarioSabana").value;
 
         sessionStorage.setItem("nombreSabana", nombreSabana);
         sessionStorage.setItem("comentarioSabana", comentarioSabana);
-
+        //Comprobar que funciona por consola
         console.log("Guardado en sessionStorage: " + sessionStorage.getItem("nombreSabana"));
     }
 
+    //Esta funcion hace que al hacer click en el boton en el que está se añada un campo a tipos
     function añadirTipo() {
         const datosTipos = document.querySelector('.datosTipos');
         const clone = datosTipos.cloneNode(true);
         datosTipos.parentNode.insertBefore(clone, datosTipos.nextSibling);
     }
 
+    //Esta funcion hace que al hacer click en el boton en el que está se añada un campo a topes
     function añadirTope() {
         const datosTopes = document.querySelector('.datosTopes');
         const clone = datosTopes.cloneNode(true);
         datosTopes.parentNode.insertBefore(clone, datosTopes.nextSibling);
     }
 
+    //Funcion para almacenar los campos que han sido rellenados en tipos convirtiendolos en un array
     function enviarTipo() {
         let selects = document.querySelectorAll(".selcTipo");
         let inputs = document.querySelectorAll(".cantTipos");
-        let tipos = [];
+
+        // Leer lo que ya había guardado antes
+        let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
 
         selects.forEach(function (select, i) {
             let selcTipo = select.value;
@@ -170,10 +186,13 @@
         console.log("Tipos guardados: ", tipos);
     }
 
+    //Funcion para almacenar los campos que han sido rellenados en topes convirtiendolos en un array
     function enviarTope() {
         let selects = document.querySelectorAll(".selcTope");
         let inputs = document.querySelectorAll(".cantTopes");
-        let topes = [];
+
+        // Leer lo que ya había guardado antes
+        let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
 
         selects.forEach(function (select, i) {
             let selcTope = select.value;
@@ -189,6 +208,7 @@
         console.log("Topes guardados: ", topes);
     }
 
+    //Funcion para almacenar los campos que han sido rellenados en servicios convirtiendolos en un array
     function enviarServicio() {
         let selects = document.querySelectorAll(".selcServ");
         let servicios = [];
@@ -210,8 +230,8 @@
         var idSabana = sessionStorage.getItem("idSabana");
         console.log("idSabana: " + idSabana);
 
-        // Si hay un idSabana guardado significa que venimos de administracion
-        // y hay que cargar los datos de esa sábana
+        /* Si hay un idSabana guardado significa que venimos de administracion
+            y hay que cargar los datos de esa sábana*/
         if (idSabana) {
             fetch("http://localhost:8080/maestra/" + idSabana)
                 .then(function (response) { return response.json(); })

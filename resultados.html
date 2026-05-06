@@ -15,7 +15,7 @@
         <h1 class="titulo">Proyecto</h1>
         <div class="navBtn">
             <button id="cambPagAdm" onclick="irAAdministracion()">Ir a Administracion</button>
-            <button id="cambPagDat" onclick="irADatos()">Ir a datos</button>
+            <button id="cambPagDat" onclick="irADatos()">Nueva tabla</button>
         </div>
     </header>
     <main>
@@ -55,12 +55,27 @@
 
     <script>
 
+        //Funcion para ir a administracion.html
         function irAAdministracion() {
             window.location.href = "administracion.html";
         }
 
+        //Funcion para ir a datos.html
         function irADatos() {
+            // Guardamos las filas actuales en filasGuardadas
+            let tiposActuales = JSON.parse(sessionStorage.getItem("tipos")) || [];
+            let topesActuales = JSON.parse(sessionStorage.getItem("topes")) || [];
+            let serviciosActuales = JSON.parse(sessionStorage.getItem("servicios")) || [];
+            let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
+            filasGuardadas.push({ tipos: tiposActuales, topes: topesActuales, servicios: serviciosActuales });
+            sessionStorage.setItem("filasGuardadas", JSON.stringify(filasGuardadas));
+
+            // Limpiamos los datos actuales para que datos.html empiece limpio
+            sessionStorage.removeItem("tipos");
+            sessionStorage.removeItem("topes");
+            sessionStorage.removeItem("servicios");
             sessionStorage.removeItem("idSabana");
+
             window.location.href = "datos.html";
         }
 
@@ -76,76 +91,76 @@
         }
 
         // ── PINTAR TABLA ─────────────────────────────────────
+        //Esta funcion coge los datos de datos.html 
         function cargarTabla() {
             let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
             let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
             let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
-
-            if (servicios.length == 0) return;
-
+            let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
             let tabla = document.getElementById("tablaResultados");
-            tabla.innerHTML = ""; // limpiar antes de pintar
+            tabla.innerHTML = "";
 
-            servicios.forEach(function (serv) {
-                // Fila de tipos
-                let filaTipos = document.createElement("tr");
-                filaTipos.innerHTML =
-                    "<td>" + serv.refServicios + "</td>" +
-                    "<td>" + getCantTipos(1, tipos) + "</td>" +
-                    "<td>" + getCantTipos(2, tipos) + "</td>" +
-                    "<td>" + getCantTipos(3, tipos) + "</td>" +
-                    "<td>" + getCantTipos(4, tipos) + "</td>" +
-                    "<td>" + getCantTipos(5, tipos) + "</td>" +
-                    "<td>" + getCantTipos(6, tipos) + "</td>" +
-                    "<td>" + getCantTipos(7, tipos) + "</td>" +
-                    "<td>" + getCantTipos(8, tipos) + "</td>" +
-                    "<td>" + getCantTipos(9, tipos) + "</td>" +
-                    "<td>" + getCantTipos(10, tipos) + "</td>" +
-                    "<td>" + getCantTipos(11, tipos) + "</td>" +
-                    "<td>" + getCantTipos(12, tipos) + "</td>";
-                tabla.appendChild(filaTipos);
-
-                // Fila de topes
-                let filaTopes = document.createElement("tr");
-                filaTopes.innerHTML =
-                    "<td>" + serv.refServicios + "</td>" +
-                    "<td>" + getCantTopes(1, topes) + "</td>" +
-                    "<td>" + getCantTopes(2, topes) + "</td>" +
-                    "<td>" + getCantTopes(3, topes) + "</td>" +
-                    "<td>" + getCantTopes(4, topes) + "</td>" +
-                    "<td>" + getCantTopes(5, topes) + "</td>" +
-                    "<td>" + getCantTopes(6, topes) + "</td>" +
-                    "<td>" + getCantTopes(7, topes) + "</td>" +
-                    "<td>" + getCantTopes(8, topes) + "</td>" +
-                    "<td>" + getCantTopes(9, topes) + "</td>" +
-                    "<td>" + getCantTopes(10, topes) + "</td>" +
-                    "<td>" + getCantTopes(11, topes) + "</td>" +
-                    "<td>" + getCantTopes(12, topes) + "</td>";
-                tabla.appendChild(filaTopes);
-                // Ocultar columnas de comodín si están vacías
-                [9, 10, 11, 12].forEach(function (num) {
-                    // Buscamos si hay algún valor en tipos o topes para ese comodín
-                    var tieneTipo = tipos.find(function (t) { return t.selcTipo == num; });
-                    var tieneTope = topes.find(function (t) { return t.selcTope == num; });
-
-                    // El índice de la columna en la tabla (comodin1=9, comodin2=10...)
-                    var colIndex = num; // columna 9 = comodin1, etc.
-
-                    if (!tieneTipo && !tieneTope) {
-                        // Ocultar la cabecera
-                        var ths = document.querySelectorAll("thead tr th");
-                        if (ths[colIndex]) ths[colIndex].style.display = "none";
-
-                        // Ocultar las celdas de esa columna en cada fila
-                        var tds = document.querySelectorAll("tbody tr td:nth-child(" + (colIndex + 1) + ")");
-                        tds.forEach(function (td) { td.style.display = "none"; });
-                    }
+            // Pintar filas anteriores guardadas
+            filasGuardadas.forEach(function (fila) {
+                fila.servicios.forEach(function (serv) {
+                    pintarFila(tabla, serv, fila.tipos, fila.topes);
                 });
             });
+
+            // Pintar filas nuevas
+            if (servicios.length > 0) {
+                servicios.forEach(function (serv) {
+                    pintarFila(tabla, serv, tipos, topes);
+                });
+            }
+
+            // Ocultar comodines vacíos
+            [9, 10, 11, 12].forEach(function (num) {
+                let tieneTipo = tipos.find(function (t) { return t.selcTipo == num; });
+                let tieneTope = topes.find(function (t) { return t.selcTope == num; });
+                if (!tieneTipo && !tieneTope) {
+                    let ths = document.querySelectorAll("thead tr th");
+                    if (ths[num]) ths[num].style.display = "none";
+                    let tds = document.querySelectorAll("tbody tr td:nth-child(" + (num + 1) + ")");
+                    tds.forEach(function (td) { td.style.display = "none"; });
+                }
+            });
+        }
+        //Estafuncion es la que le da la estructura a la tabla, crea las celdas de la tabla con innerHtml
+        function pintarFila(tabla, serv, tipos, topes) {
+            let fila = document.createElement("tr");
+            fila.innerHTML =
+                "<td>" + serv.refServicios + "</td>" +
+                "<td>" + juntarValores(getCantTipos(1, tipos), getCantTopes(1, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(2, tipos), getCantTopes(2, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(3, tipos), getCantTopes(3, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(4, tipos), getCantTopes(4, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(5, tipos), getCantTopes(5, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(6, tipos), getCantTopes(6, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(7, tipos), getCantTopes(7, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(8, tipos), getCantTopes(8, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(9, tipos), getCantTopes(9, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(10, tipos), getCantTopes(10, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(11, tipos), getCantTopes(11, topes)) + "</td>" +
+                "<td>" + juntarValores(getCantTipos(12, tipos), getCantTopes(12, topes)) + "</td>";
+            tabla.appendChild(fila);
+        }
+
+        // Nueva función que junta tipo y tope en una celda
+        function juntarValores(tipo, tope) {
+            if (tipo && tope) return tipo + " / " + tope;
+            if (tipo) return tipo;
+            if (tope) return tope;
+            return "";
         }
 
         // ── AL CARGAR LA PÁGINA ──────────────────────────────
         document.addEventListener("DOMContentLoaded", function () {
+            //Estas 3 lineas son solo para comprobar por consola si los datos llegan
+            console.log("tipos al cargar:", sessionStorage.getItem("tipos"));
+            console.log("topes al cargar:", sessionStorage.getItem("topes"));
+            console.log("servicios al cargar:", sessionStorage.getItem("servicios"));
+            
             let idSabana = sessionStorage.getItem("idSabana");
 
             // Si venimos de administracion cargamos de la BD
@@ -199,6 +214,16 @@
 
         // ── GUARDAR EN LA BD ─────────────────────────────────
         function guardarTabla() {
+            let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
+            let tiposActuales = JSON.parse(sessionStorage.getItem("tipos")) || [];
+            let topesActuales = JSON.parse(sessionStorage.getItem("topes")) || [];
+            let serviciosActuales = JSON.parse(sessionStorage.getItem("servicios")) || [];
+
+            // Juntamos todas las filas
+            if (serviciosActuales.length > 0) {
+                filasGuardadas.push({ tipos: tiposActuales, topes: topesActuales, servicios: serviciosActuales });
+            }
+
             let nombreSabana = sessionStorage.getItem("nombreSabana");
             let comentarioSabana = sessionStorage.getItem("comentarioSabana");
             let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];

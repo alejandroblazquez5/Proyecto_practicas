@@ -182,4 +182,37 @@ CREATE TABLE topes_anuales(
 	GP INT,
 	GPpct INT,
 	FOREIGN KEY (id_topes) REFERENCES topes(id_topes)
+	
+USE proyecto;
+INSERT INTO tipoTopes (agrupacionTopes) VALUES ('Implantacion'), ('Formacion'), ('Gestion'), ('Infraestructura'), ('Soporte'), ('Soporte avanzado'), ('Evolucion y mejora'), ('Desarrollo'), ('Comodin 1'), ('Comodin 2'), ('Comodin 3'), ('Comodin 4');
+
+ALTER TABLE margenes MODIFY margen DECIMAL(10,2);
+ALTER TABLE topes MODIFY topes INT;
+ALTER TABLE servicios MODIFY Horas DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Costes_h DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Mult DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Coste DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Tope_licitacion DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Margen DECIMAL(10,2);
+ALTER TABLE servicios MODIFY Des DECIMAL(10,2);
+ALTER TABLE servicios MODIFY PVP DECIMAL(10,2);
+
+
+USE proyecto;
+SELECT * FROM tipoMargenes;
+SELECT * FROM tipoTopes;
+
+USE proyecto;
+INSERT INTO tipoMargenes (tipo) VALUES ('Implantacion'), ('Formacion'), ('Gestion'), ('Infraestructura'), ('Soporte'), ('Soporte avanzado'), ('Evolucion y mejora'), ('Desarrollo'), ('Comodin 1'), ('Comodin 2'), ('Comodin 3'), ('Comodin 4');
+
+USE proyecto;
+DELETE FROM topes;
+DELETE FROM margenes;
+DELETE FROM servicios;
+DELETE FROM maestra;
+ALTER TABLE maestra AUTO_INCREMENT = 1;
+ALTER TABLE servicios AUTO_INCREMENT = 1;
+ALTER TABLE margenes AUTO_INCREMENT = 1;
+ALTER TABLE topes AUTO_INCREMENT = 1;
+
 );
