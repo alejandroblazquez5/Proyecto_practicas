@@ -15,7 +15,7 @@
         <h1 class="titulo">Proyecto</h1>
         <div class="navBtn">
             <button id="cambPagAdm" onclick="irAAdministracion()">Ir a Administracion</button>
-            <button id="cambPagRes" onclick="irAResultados()">Ir a resultados</button>
+            <button id="cambPagRes" onclick="irAResultados()">Mostrar tabla actual</button>
         </div>
     </header>
     <main>
@@ -23,6 +23,7 @@
         <div>
             <input type="text" id="nombreSabana" placeholder="Introduzca el nombre de la sabana">
             <input type="text" id="comentarioSabana" placeholder="Introduzca un comentario sobre la sabana">
+            <button id="btnAplicCambios" onclick="irAResultados()">Aplicar cambios</button>
         </div>
         <div class="tiptopserv">
             <div class="Tipos">
@@ -125,6 +126,13 @@
     }
 
     function irAResultados() {
+        let nombre = document.getElementById("nombreSabana").value;
+
+        if (!nombre) {
+            alert("Por favor, introduce un nombre para la sábana antes de continuar.");
+            return;
+        }
+
         guardarCabecera();
         window.location.href = "resultados.html";
     }
@@ -154,7 +162,9 @@
     function enviarTipo() {
         let selects = document.querySelectorAll(".selcTipo");
         let inputs = document.querySelectorAll(".cantTipos");
-        let tipos = [];
+
+        // Leer lo que ya había guardado antes
+        let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
 
         selects.forEach(function (select, i) {
             let selcTipo = select.value;
@@ -173,7 +183,30 @@
     function enviarTope() {
         let selects = document.querySelectorAll(".selcTope");
         let inputs = document.querySelectorAll(".cantTopes");
-        let topes = [];
+
+        // Leer lo que ya había guardado antes
+        let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+
+        selects.forEach(function (select, i) {
+            let selcTope = select.value;
+            let textoTope = select.options[select.selectedIndex].text;
+            let cantTopes = inputs[i].value;
+
+            if (selcTope != 0) {
+                topes.push({ selcTope: selcTope, textoTope: textoTope, cantTopes: cantTopes });
+            }
+        });
+
+        sessionStorage.setItem("topes", JSON.stringify(topes));
+        console.log("Topes guardados: ", topes);
+    }
+
+    function enviarTope() {
+        let selects = document.querySelectorAll(".selcTope");
+        let inputs = document.querySelectorAll(".cantTopes");
+
+        // Leer lo que ya había guardado antes
+        let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
 
         selects.forEach(function (select, i) {
             let selcTope = select.value;

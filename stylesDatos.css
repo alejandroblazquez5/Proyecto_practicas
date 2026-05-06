@@ -175,3 +175,7 @@ footer {
         flex-direction: column;
     }
 }
+
+#btnAplicCambios {
+    margin-left: 20px;
+}
