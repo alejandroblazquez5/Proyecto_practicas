@@ -50,6 +50,18 @@
         </table>
         </div>
         <p></p>
+        <table id="tablaCalculos">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Horas</th>
+                    <th>Coste</th>
+                    <th>Margen</th>
+                    <th>PVP</th>
+                </tr>
+            </thead>
+            <tbody id="tablaCalculosCuerpo"></tbody>
+        </table>
         <button id="guardarTab" value="GuardarTabla" onclick="guardarTabla()">Guardar</button>
     </main>
 
@@ -115,17 +127,21 @@
             }
 
             // Ocultar comodines vacíos
+            // Ocultar comodines vacíos
             [9, 10, 11, 12].forEach(function (num) {
                 let tieneTipo = tipos.find(function (t) { return t.selcTipo == num; });
                 let tieneTope = topes.find(function (t) { return t.selcTope == num; });
                 if (!tieneTipo && !tieneTope) {
-                    let ths = document.querySelectorAll("thead tr th");
+                    // Solo afecta a la primera tabla
+                    let ths = document.querySelectorAll("table:first-of-type thead tr th");
                     if (ths[num]) ths[num].style.display = "none";
-                    let tds = document.querySelectorAll("tbody tr td:nth-child(" + (num + 1) + ")");
+                    let tds = document.querySelectorAll("table:first-of-type tbody tr td:nth-child(" + (num + 1) + ")");
                     tds.forEach(function (td) { td.style.display = "none"; });
                 }
             });
+            calcularTabla();
         }
+
         //Estafuncion es la que le da la estructura a la tabla, crea las celdas de la tabla con innerHtml
         function pintarFila(tabla, serv, tipos, topes) {
             let fila = document.createElement("tr");
@@ -160,7 +176,7 @@
             console.log("tipos al cargar:", sessionStorage.getItem("tipos"));
             console.log("topes al cargar:", sessionStorage.getItem("topes"));
             console.log("servicios al cargar:", sessionStorage.getItem("servicios"));
-            
+
             let idSabana = sessionStorage.getItem("idSabana");
 
             // Si venimos de administracion cargamos de la BD
@@ -297,6 +313,55 @@
                     console.log("Error: " + error);
                     alert("Error al guardar");
                 });
+        }
+
+        function calcularTabla() {
+            let tipos = JSON.parse(sessionStorage.getItem("tipos")) || [];
+            let topes = JSON.parse(sessionStorage.getItem("topes")) || [];
+            let servicios = JSON.parse(sessionStorage.getItem("servicios")) || [];
+            let filasGuardadas = JSON.parse(sessionStorage.getItem("filasGuardadas")) || [];
+
+            let tabla = document.getElementById("tablaCalculosCuerpo");
+            tabla.innerHTML = "";
+
+            // Juntamos todas las filas
+            let todasLasFilas = [];
+            filasGuardadas.forEach(function (fila) {
+                fila.servicios.forEach(function (serv) {
+                    todasLasFilas.push({ serv: serv, tipos: fila.tipos, topes: fila.topes });
+                });
+            });
+            servicios.forEach(function (serv) {
+                todasLasFilas.push({ serv: serv, tipos: tipos, topes: topes });
+            });
+
+            todasLasFilas.forEach(function (item) {
+                // Precio base según el servicio
+                let precioBase = item.serv.selcServ == 1 ? 60 : 490;
+
+                // Horas aleatorias entre 1 y 9
+                let horas = Math.floor(Math.random() * 9) + 1;
+
+                // Coste = precio base × horas
+                let coste = precioBase * horas;
+
+                // Margen = suma de topes - suma de tipos
+                let sumaTipos = item.tipos.reduce(function (acc, t) { return acc + parseFloat(t.cantTipos || 0); }, 0);
+                let sumaTopes = item.topes.reduce(function (acc, t) { return acc + parseFloat(t.cantTopes || 0); }, 0);
+                let margen = sumaTopes - sumaTipos;
+
+                // PVP = coste + margen
+                let pvp = coste + margen;
+
+                let fila = document.createElement("tr");
+                fila.innerHTML =
+                    "<td>" + item.serv.textoServ + "</td>" +
+                    "<td>" + horas + "</td>" +
+                    "<td>" + coste + "</td>" +
+                    "<td>" + margen + "</td>" +
+                    "<td>" + pvp + "</td>";
+                tabla.appendChild(fila);
+            });
         }
 
     </script>
